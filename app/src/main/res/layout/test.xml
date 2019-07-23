@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/prepare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="prepare" />
+            <Button
+                android:id="@+id/start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="录音" />
+
+            <Button
+                android:id="@+id/over"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="结束" />
+
+            <Button
+                android:id="@+id/play"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="播放" />
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="delete" />
+
+            <Button
+                android:id="@+id/Permissions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Permissions" />
+
+            <Button
+                android:id="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="add_phone_number" />
+
+            <Button
+                android:id="@+id/delete_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="delete_phone_number" />
+
+            <Button
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="up_date" />
+            <Button
+                android:id="@+id/test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3333" />
+            <Button
+                android:id="@+id/download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="download" />
+            <Button
+                android:id="@+id/download_play"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="download_paly" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

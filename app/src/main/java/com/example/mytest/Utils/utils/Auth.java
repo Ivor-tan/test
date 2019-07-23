@@ -1,4 +1,4 @@
-package com.example.wizardev.imagepick.utils;
+package com.example.mytest.Utils.utils;
 
 import com.qiniu.android.http.Client;
 

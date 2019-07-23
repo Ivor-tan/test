@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_5">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/dp_2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100">
+            <TextView
+                android:id="@+id/fee_year_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_22"
+                android:text="2019年4月账单"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_66"
+                android:textColor="#888888"
+                android:textSize="@dimen/sp_16"
+                android:text="基础物业管理费" />
+
+            <CheckBox
+                android:id="@+id/pay_property_fee_CheckBox"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
+                android:button="@null"
+                android:background="@drawable/checkbox_selector"
+                android:layout_marginLeft="@dimen/dp_320"
+                android:layout_marginTop="@dimen/dp_22" />
+
+            <TextView
+                android:id="@+id/moneys"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_300"
+                android:layout_marginTop="@dimen/dp_66"
+                android:textColor="#888888"
+                android:textSize="@dimen/sp_16"
+                android:text="266元" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
