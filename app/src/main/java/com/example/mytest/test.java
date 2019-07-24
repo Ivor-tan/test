@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -21,9 +22,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.TTTTTT.my.R;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.mytest.Utils.AudioManager;
 import com.example.mytest.Utils.JsonHelper;
 import com.example.mytest.Utils.MediaManager;
@@ -50,7 +55,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.security.GeneralSecurityException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -69,6 +77,7 @@ public class test extends Activity implements View.OnClickListener, AudioManager
     private static PermissionListener mListener;
     private static Activity activity;
     private Button test;
+    private TextView textView;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -77,12 +86,30 @@ public class test extends Activity implements View.OnClickListener, AudioManager
         setContentView(R.layout.test);
         activity = this;
 
-        int[] ids = new int[]{R.id.start, R.id.over, R.id.play, R.id.date, R.id.delete, R.id.Permissions, R.id.phone_number, R.id.delete_phone_number, R.id.date, R.id.prepare, R.id.download, R.id.download_play};
+        initView();
+        initData();
+
+
+//        byte[] sk = StringUtils.utf8Bytes("YSpnaCpayLY-0Snc28yO_x516Jssi9zuUliEN4Pa");
+//        SecretKeySpec secretKey = new SecretKeySpec(sk, "HmacSHA1");
+//        Mac mac;
+//        try {
+//            mac = javax.crypto.Mac.getInstance("HmacSHA1");
+//            mac.init(secretKey);
+//        } catch (GeneralSecurityException e) {
+//            e.printStackTrace();
+//            throw new IllegalArgumentException(e);
+//        }
+//        String encodedSign = UrlSafeBase64.encodeToString(mac.doFinal(object.toString().getBytes()));
+
+    }
+
+    private void initView() {
+        int[] ids = new int[]{R.id.time_picker, R.id.start, R.id.over, R.id.play, R.id.date, R.id.delete, R.id.Permissions, R.id.phone_number, R.id.delete_phone_number, R.id.date, R.id.prepare, R.id.download, R.id.download_play};
         for (int id : ids) {
             findViewById(id).setOnClickListener(this);
         }
-
-
+        textView =findViewById(R.id.textView);
         test = findViewById(R.id.test);
         test.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -100,17 +127,9 @@ public class test extends Activity implements View.OnClickListener, AudioManager
                 return false;
             }
         });
-//        byte[] sk = StringUtils.utf8Bytes("YSpnaCpayLY-0Snc28yO_x516Jssi9zuUliEN4Pa");
-//        SecretKeySpec secretKey = new SecretKeySpec(sk, "HmacSHA1");
-//        Mac mac;
-//        try {
-//            mac = javax.crypto.Mac.getInstance("HmacSHA1");
-//            mac.init(secretKey);
-//        } catch (GeneralSecurityException e) {
-//            e.printStackTrace();
-//            throw new IllegalArgumentException(e);
-//        }
-//        String encodedSign = UrlSafeBase64.encodeToString(mac.doFinal(object.toString().getBytes()));
+    }
+
+    private void initData() {
 
     }
 
@@ -271,12 +290,27 @@ public class test extends Activity implements View.OnClickListener, AudioManager
                         Toast.makeText(test.this, "play.................over", Toast.LENGTH_SHORT).show();
                     }
                 });
+                break;
 
+            case R.id.time_picker:
+                showPickTime();
+                break;
         }
     }
 
-    private void http() {
-
+    private void showPickTime() {
+        TimePickerView timePickerView = new TimePickerBuilder(this, new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd HH点mm分");
+                textView.setText(formatter.format(date));
+//                Log.d("test", "onTimeSelect: " + formatter.format(date));
+            }
+        }).setTitleText("上门时间")
+                .setType(new boolean[]{true, true, true, true, true, false})
+                .setBgColor(Color.rgb(255, 255, 255))
+                .setTitleBgColor(Color.rgb(255, 255, 255)).build();
+        timePickerView.show();
     }
 
     /**

@@ -13,11 +13,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:background="@color/blue"
+                android:gravity="center" />
+
             <Button
                 android:id="@+id/prepare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="prepare" />
+
             <Button
                 android:id="@+id/start"
                 android:layout_width="match_parent"
@@ -65,21 +73,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="up_date" />
+
             <Button
                 android:id="@+id/test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="3333" />
+
             <Button
                 android:id="@+id/download"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="download" />
+
             <Button
                 android:id="@+id/download_play"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="download_paly" />
+
+            <Button
+                android:id="@+id/time_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="time_picker" />
         </LinearLayout>
 
     </ScrollView>
