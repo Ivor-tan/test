@@ -110,23 +110,23 @@ public class test extends Activity implements View.OnClickListener, AudioManager
             findViewById(id).setOnClickListener(this);
         }
         textView =findViewById(R.id.textView);
-        test = findViewById(R.id.test);
-        test.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        test.setText("11111");
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        test.setText("22222");
-                        break;
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
+//        test = findViewById(R.id.test);
+//        test.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        test.setText("11111");
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        test.setText("22222");
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
     }
 
     private void initData() {

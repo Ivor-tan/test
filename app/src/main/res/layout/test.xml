@@ -75,12 +75,6 @@
                 android:text="up_date" />
 
             <Button
-                android:id="@+id/test"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="3333" />
-
-            <Button
                 android:id="@+id/download"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
