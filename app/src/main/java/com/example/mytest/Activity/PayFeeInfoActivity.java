@@ -1,7 +1,5 @@
-package com.example.mytest;
+package com.example.mytest.Activity;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,10 +12,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.TTTTTT.my.R;
+import com.example.mytest.bean.PayPropertyFeeInfoBean;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

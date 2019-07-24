@@ -7,8 +7,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -17,9 +15,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Base64;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,47 +25,29 @@ import com.TTTTTT.my.R;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.example.mytest.Listener.PermissionListener;
 import com.example.mytest.Utils.AudioManager;
-import com.example.mytest.Utils.JsonHelper;
 import com.example.mytest.Utils.MediaManager;
-import com.example.mytest.Utils.utils.Auth;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.qiniu.android.common.AutoZone;
-import com.qiniu.android.common.FixedZone;
-import com.qiniu.android.common.Zone;
 import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.http.UrlConverter;
 import com.qiniu.android.storage.Configuration;
 
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
-import com.qiniu.android.utils.StringUtils;
-import com.qiniu.android.utils.UrlSafeBase64;
 
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.security.GeneralSecurityException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.crypto.spec.SecretKeySpec;
-import javax.crypto.Mac;
-
 import cz.msebera.android.httpclient.Header;
 
 import static com.example.mytest.Utils.FileUtils.byteToFile;
-import static com.example.mytest.Utils.QiniuToken.HmacSHA1Encrypt;
-import static com.example.mytest.Utils.QiniuToken.getHMAC;
-import static com.example.mytest.Utils.QiniuToken.getNowTimeStamp;
 import static com.example.mytest.Utils.QiniuToken.tokenupload;
 
 public class test extends Activity implements View.OnClickListener, AudioManager.AudioStateListener {

@@ -1,4 +1,4 @@
-package com.example.mytest;
+package com.example.mytest.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.TTTTTT.my.R;
+import com.example.mytest.bean.PayPropertyFeeInfoBean;
 
 import java.util.ArrayList;
 import java.util.List;

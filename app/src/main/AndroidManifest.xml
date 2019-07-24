@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.example.mytest.PayFeeInfoActivity"></activity>
+        <activity android:name="com.example.mytest.Activity.PayFeeInfoActivity"></activity>
         <activity android:name="com.example.mytest.test">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
