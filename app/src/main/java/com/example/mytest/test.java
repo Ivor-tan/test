@@ -16,6 +16,7 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -88,23 +89,23 @@ public class test extends Activity implements View.OnClickListener, AudioManager
             findViewById(id).setOnClickListener(this);
         }
         textView =findViewById(R.id.textView);
-//        test = findViewById(R.id.test);
-//        test.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        test.setText("11111");
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        test.setText("22222");
-//                        break;
-//                    default:
-//                        break;
-//                }
-//                return false;
-//            }
-//        });
+        test = findViewById(R.id.test);
+        test.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        test.setText("11111");
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        test.setText("22222");
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void initData() {
@@ -251,7 +252,6 @@ public class test extends Activity implements View.OnClickListener, AudioManager
                         String tempPath = test.getContext().getFilesDir() + "/" + "recode" + "/" + "test" + manager.getFileName();
                         Log.d("test", "onSuccess: " + binaryData.toString());
                         byteToFile(binaryData, tempPath);
-
                     }
 
                     @Override
