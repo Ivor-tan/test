@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.TTTTTT.my.R;
 import com.example.mytest.bean.PayPropertyFeeInfoBean;
+import com.test.my.R;
 
 import java.util.ArrayList;
 import java.util.List;

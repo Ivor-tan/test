@@ -11,8 +11,8 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.TTTTTT.my.R;
 import com.example.mytest.bean.PayPropertyFeeInfoBean;
+import com.test.my.R;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 

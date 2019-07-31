@@ -22,13 +22,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.TTTTTT.my.R;
+
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.mytest.Listener.PermissionListener;
 import com.example.mytest.Utils.AudioManager;
 import com.example.mytest.Utils.MediaManager;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.qiniu.android.common.AutoZone;
@@ -37,6 +38,7 @@ import com.qiniu.android.storage.Configuration;
 
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
+import com.test.my.R;
 
 import org.json.JSONObject;
 
@@ -57,6 +59,7 @@ public class test extends Activity implements View.OnClickListener, AudioManager
     private static Activity activity;
     private Button test;
     private TextView textView;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -88,7 +91,7 @@ public class test extends Activity implements View.OnClickListener, AudioManager
         for (int id : ids) {
             findViewById(id).setOnClickListener(this);
         }
-        textView =findViewById(R.id.textView);
+        textView = findViewById(R.id.textView);
 //        test = findViewById(R.id.test);
 //        test.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
@@ -106,10 +109,6 @@ public class test extends Activity implements View.OnClickListener, AudioManager
 //                return false;
 //            }
 //        });
-                Log.d("test", "onCreate: " + this.getFilesDir() + "----------------" + this.fileList().toString());
-                Log.d("test", "onCreate: " + this.getFilesDir() + "----------------" + this.fileList().toString());
-                Log.d("test", "onCreate: " + this.getFilesDir() + "----------------" + this.fileList().toString());
-                Log.d("test", "onCreate: " + this.getFilesDir() + "----------------" + this.fileList().toString());
     }
 
     private void initData() {
