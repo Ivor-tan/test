@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <WebView
+        android:id="@+id/test_web_View"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/jsLocate_button_web_View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="jsLocate" />
+
+    <Button
+        android:id="@+id/jsSearch_button_web_View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/jsLocate_button_web_View"
+        android:text="jsSearch" />
+    <Button
+        android:id="@+id/simpleMap_button_web_View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/jsSearch_button_web_View"
+        android:text="simpleMap" />
+
+</RelativeLayout>

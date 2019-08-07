@@ -5,8 +5,6 @@
     android:orientation="vertical">
 
 
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RatingBar
                 style="@style/roomRatingBar"
                 android:layout_width="wrap_content"
@@ -22,8 +21,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="@dimen/dp_50"
                 android:numStars="5"
-                android:stepSize="1">
-            </RatingBar>
+                android:stepSize="1"></RatingBar>
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
@@ -31,12 +30,11 @@
                 android:background="@color/blue"
                 android:gravity="center" />
 
-
             <Button
                 android:id="@+id/test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="test" />
+                android:text="NiceImageView" />
 
             <Button
                 android:id="@+id/prepare"
@@ -109,6 +107,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="time_picker" />
+
+            <Button
+                android:id="@+id/web_View"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="web_View" />
         </LinearLayout>
 
     </ScrollView>

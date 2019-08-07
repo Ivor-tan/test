@@ -304,7 +304,7 @@ public final class Base64 {
         };
 
         /**
-         * Decode lookup table for the "web safe" variant (RFC 3548
+         * Decode lookup table for the "map2 safe" variant (RFC 3548
          * sec. 4) where - and _ replace + and /.
          */
         private static final int DECODE_WEBSAFE[] = {

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -26,9 +27,14 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.example.mytest.Activity.ImageActivity;
+import com.example.mytest.Activity.WebViewActivity;
 import com.example.mytest.Listener.PermissionListener;
 import com.example.mytest.Utils.AudioManager;
+import com.example.mytest.Utils.GsonUtils;
+import com.example.mytest.Utils.JsonHelper;
 import com.example.mytest.Utils.MediaManager;
+import com.example.mytest.bean.TokenBean;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BinaryHttpResponseHandler;
@@ -40,15 +46,25 @@ import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 import com.test.my.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static com.example.mytest.Utils.FileUtils.byteToFile;
 import static com.example.mytest.Utils.QiniuToken.tokenupload;
@@ -59,7 +75,6 @@ public class test extends Activity implements View.OnClickListener, AudioManager
     private static Activity activity;
     private Button test;
     private TextView textView;
-
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -87,7 +102,14 @@ public class test extends Activity implements View.OnClickListener, AudioManager
     }
 
     private void initView() {
-        int[] ids = new int[]{R.id.time_picker, R.id.start, R.id.over, R.id.play, R.id.date, R.id.delete, R.id.Permissions, R.id.phone_number, R.id.delete_phone_number, R.id.date, R.id.prepare, R.id.download, R.id.download_play};
+        int[] ids = new int[]{R.id.test,
+                R.id.time_picker, R.id.start,
+                R.id.over, R.id.play, R.id.date,
+                R.id.delete, R.id.Permissions,
+                R.id.phone_number, R.id.delete_phone_number,
+                R.id.web_View,
+                R.id.date, R.id.prepare, R.id.download,
+                R.id.download_play};
         for (int id : ids) {
             findViewById(id).setOnClickListener(this);
         }
@@ -124,11 +146,23 @@ public class test extends Activity implements View.OnClickListener, AudioManager
             "android.permission.RECORD_AUDIO",
             "android.permission.INTERNET",
             "android.permission.WRITE_EXTERNAL_STORAGE",
-            "android.permission.READ_EXTERNAL_STORAGE"};
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.ACCESS_FINE_LOCATION",
+            "android.permission.ACCESS_COARSE_LOCATION"};
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.web_View:
+                Intent webView = new Intent(this, WebViewActivity.class);
+                startActivity(webView);
+                break;
+            case R.id.test:
+                Intent intent = new Intent(this, ImageActivity.class);
+//                startActivity(intent,;
+                startActivityForResult(intent, 1);
+
+                break;
             case R.id.prepare:
 
                 //        Log.d("test", "onCreate: " + this.getFilesDir() + "----------------" + this.fileList().toString());
@@ -274,9 +308,56 @@ public class test extends Activity implements View.OnClickListener, AudioManager
                 break;
 
             case R.id.time_picker:
+                MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+//                String requestBody = "{"type":"1"}";
+//                JSONObject requestBody = new JSONObject();
+//                JsonHelper.put(requestBody, "type", "3");
+//                JsonHelper.put(requestBody, "mobile", "15527017729");
+//                String aaa = "15527017729";
+//                String bbb = "2";
+
+//                Log.d("test", "onClick: " + "http://120.26.60.230:8180/charm-mmc/api/v1/common/sms/vcode/" + aaa + "," + bbb);
+
+                Request request = new Request.Builder()
+                        .url("http://120.26.60.230:8180/charm-mmc/api/v1/app/whAppUser/getEncryptToken?tokenKey=get")
+                        .get()
+                        .build();
+                OkHttpClient okHttpClient = new OkHttpClient();
+                okHttpClient.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.d("test", "onFailure: " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Log.d("test", response.protocol() + " " + response.code() + " " + response.message());
+                        Headers headers = response.headers();
+                        for (int i = 0; i < headers.size(); i++) {
+                            Log.d("test", headers.name(i) + ":" + headers.value(i));
+                        }
+//                        Log.d("test", "onResponse: " + response.body().string());
+
+                        String sss = response.body().string();
+                        Log.d("test", "onResponse: " + sss);
+                        TokenBean bean = GsonUtils.jsonToBean(sss, TokenBean.class);
+
+                        Log.d("test", "onResponse: " + bean.getData().getTokenInfo().getUserKey());
+
+                    }
+                });
                 showPickTime();
                 break;
         }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("test", "onActivityResult: " + requestCode + resultCode + data.getStringExtra("name"));
+        TokenBean bean = (TokenBean) data.getSerializableExtra("bean");
+        Log.d("test", "onActivityResult: " + bean.getCode());
     }
 
     private void showPickTime() {

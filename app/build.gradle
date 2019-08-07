@@ -3,9 +3,13 @@ apply plugin: 'com.android.application'
 android {
 
     compileSdkVersion 28
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     defaultConfig {
         applicationId "com.example.mytest"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -40,6 +44,7 @@ dependencies {
     implementation 'com.zhy:base-rvadapter:3.0.3'
     //通用适配器
     implementation files('libs/universal-image-loader-1.9.3.jar')
+//    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     //异步图片显示
     implementation 'com.google.code.gson:gson:2.2.2'
     //josn
@@ -54,7 +59,7 @@ dependencies {
     //    dialog
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5-alpha-3'
     //下拉刷新
-    implementation 'com.google.code.gson:gson:2.2.2'
+
     //GsonUtils.changeGsonToList(result.getString("repairInfo"), new TypeToken<List<RepairInfo>>() {}.getType
     //    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'//没有使用特殊Header，可以不加这行
     //    compile 'com.android.support:appcompat-v7:25.3.1'//版本 23以上（必须）
@@ -64,4 +69,9 @@ dependencies {
     //    implementation 'com.squareup.okio:okio:1.11.0'
     //    implementation 'com.google.code.gson:gson:2.8.0'
     implementation files('libs/xUtils-2.6.14.jar')
+    implementation 'com.google.code.gson:gson:2.2.2'
+
+    implementation 'com.github.SheHuan:NiceImageView:1.0.5'//图片圆角
+
+    implementation 'com.esri.arcgisruntime:arcgis-android:100.5.0'//地图测绘
 }
