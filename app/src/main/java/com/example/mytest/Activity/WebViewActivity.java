@@ -64,7 +64,7 @@ public class WebViewActivity extends Activity implements View.OnClickListener {
 //        file:///android_asset/web/    文件名、目录   =====》 小写  《=====
 //        http://120.26.60.230:8180/dist/index.html#/
 //        http://120.26.60.230:8180/dist/appindex.html#/
-        Log.d("test", "webOperate: ");
+        Log.d("main_test", "webOperate: ");
         webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl("http://120.26.60.230:8180/dist/appindex.html#/");
@@ -86,17 +86,17 @@ public class WebViewActivity extends Activity implements View.OnClickListener {
 //         "coordinateY": "37.5540950",
         switch (v.getId()) {
             case R.id.jsLocate_button_web_View:
-                Log.d("test", "onClick: 1111111111111");
+                Log.d("main_test", "onClick: 1111111111111");
                 getlocate();
                 webView.loadUrl("javascript:jsLocate('" + lat + "','" + lng + "')");
                 break;
 
             case R.id.jsSearch_button_web_View:
-                Log.d("test", "onClick: 222222222222");
+                Log.d("main_test", "onClick: 222222222222");
                 webView.loadUrl("javascript:jsSearch('" + "富海小区" + "')");
                 break;
             case R.id.simpleMap_button_web_View:
-                Log.d("test", "onClick: 333333333333");
+                Log.d("main_test", "onClick: 333333333333");
 //                simpleMap("陈家山村E", "121.960616", "37.3322972")
 //                webView.loadUrl("javascript:simpleMap('" + travelGsonData.getName() + "','" + travelGsonData.getLat() + "','" +
 //                        travelGsonData.getLng() + "')");

@@ -117,20 +117,20 @@ public class PayFeeInfoActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.currently_charge:
-                    Log.d("test", "onClick: currently_charge");
+                    Log.d("main_test", "onClick: currently_charge");
                     currently_charge.setTextSize(18);
                     historical_arrears.setTextSize(16);
                     break;
 
                 case R.id.historical_arrears:
-                    Log.d("test", "onClick: historical_arrears");
+                    Log.d("main_test", "onClick: historical_arrears");
 //                    setAdapter(historical_arrears_list);
 //                    pay_property_list.notifyAll();
                     currently_charge.setTextSize(16);
                     historical_arrears.setTextSize(18);
                     break;
                 case R.id.gopay:
-                    Log.d("test", "onClick: historical_arrears");
+                    Log.d("main_test", "onClick: historical_arrears");
                     currently_charge_list.clear();
                     mAdapter.notifyDataSetChanged();
                     break;

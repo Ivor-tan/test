@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!-- 内存读写 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,6 +29,7 @@
         <activity android:name="com.example.mytest.Activity.PayFeeInfoActivity"></activity>
         <activity android:name="com.example.mytest.Activity.ImageActivity" />
         <activity android:name="com.example.mytest.Activity.WebViewActivity" />
+        <activity android:name="com.example.mytest.Activity.CameraActivity" />
 
         <activity android:name="com.example.mytest.test">
             <intent-filter>
