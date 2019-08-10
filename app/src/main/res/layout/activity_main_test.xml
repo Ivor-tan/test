@@ -21,7 +21,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="@dimen/dp_50"
                 android:numStars="5"
-                android:stepSize="1"></RatingBar>
+                android:stepSize="1"/>
 
             <TextView
                 android:id="@+id/textView"
@@ -36,40 +36,16 @@
                 android:layout_height="wrap_content"
                 android:text="Camera Test" />
             <Button
-                android:id="@+id/test"
+                android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NiceImageView" />
 
             <Button
-                android:id="@+id/prepare"
+                android:id="@+id/audio_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="prepare" />
-
-            <Button
-                android:id="@+id/start"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="录音" />
-
-            <Button
-                android:id="@+id/over"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="结束" />
-
-            <Button
-                android:id="@+id/play"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="播放" />
-
-            <Button
-                android:id="@+id/delete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="delete" />
+                android:text="Audio" />
 
             <Button
                 android:id="@+id/Permissions"
@@ -89,23 +65,6 @@
                 android:layout_height="wrap_content"
                 android:text="delete_phone_number" />
 
-            <Button
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="up_date" />
-
-            <Button
-                android:id="@+id/download"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="download" />
-
-            <Button
-                android:id="@+id/download_play"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="download_paly" />
 
             <Button
                 android:id="@+id/time_picker"

@@ -82,7 +82,7 @@ public class QiniuToken {
         String SECRET_KEY = "YSpnaCpayLY-0Snc28yO_x516Jssi9zuUliEN4Pa";
 //      String putpolicy = "{\"scope\":\"javademo\",\"deadline\":1457843866}";
         String putpolicy = "{\"scope\":\"" + fileName + "\",\"deadline\":" + deadline + "}";
-        Log.d("main_test", "tokenupload: " + putpolicy);
+        Log.d("activity_main_test", "tokenupload: " + putpolicy);
 //        JSONObject object = new JSONObject();
 //        JsonHelper.put(object, "scope", fileName);
 //        JsonHelper.put(object, "deadline", deadline);

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/prepare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="prepare" />
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="录音" />
+
+    <Button
+        android:id="@+id/over"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="结束" />
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="播放" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="delete" />
+
+    <Button
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="up_date" />
+
+    <Button
+        android:id="@+id/download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="download" />
+
+    <Button
+        android:id="@+id/download_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="download_paly" />
+
+
+</LinearLayout>

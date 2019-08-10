@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.example.mytest.Activity.AudioActivity;
 import com.example.mytest.Activity.CameraActivity;
 import com.example.mytest.Activity.ImageActivity;
 import com.example.mytest.Activity.WebViewActivity;
@@ -67,11 +68,10 @@ import okhttp3.Response;
 import static com.example.mytest.Utils.FileUtils.byteToFile;
 import static com.example.mytest.Utils.QiniuToken.tokenupload;
 
-public class test extends Activity implements View.OnClickListener, AudioManager.AudioStateListener {
-    AudioManager manager;
+public class MainTest extends Activity implements View.OnClickListener {
+
     private static PermissionListener mListener;
     private static Activity activity;
-    private Button test;
 
 
     @ViewInject(R.id.textView)
@@ -81,7 +81,7 @@ public class test extends Activity implements View.OnClickListener, AudioManager
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_test);
+        setContentView(R.layout.activity_main_test);
         activity = this;
 
         initView();
@@ -104,28 +104,28 @@ public class test extends Activity implements View.OnClickListener, AudioManager
 
     private void initView() {
         ViewUtils.inject(this);
-        int[] ids = new int[]{R.id.test,
-                R.id.time_picker, R.id.start,
-                R.id.over, R.id.play, R.id.date,
-                R.id.delete, R.id.Permissions,
-                R.id.phone_number, R.id.delete_phone_number,
+        int[] ids = new int[]{R.id.image_view,
+                R.id.time_picker,
+                R.id.phone_number,
+                R.id.delete_phone_number,
                 R.id.web_View,
-                R.id.date, R.id.prepare, R.id.download,
                 R.id.camera,
-                R.id.download_play};
+                R.id.Permissions,
+                R.id.audio_test
+        };
         for (int id : ids) {
             findViewById(id).setOnClickListener(this);
         }
-//        main_test = findViewById(R.id.main_test);
-//        main_test.setOnTouchListener(new View.OnTouchListener() {
+//        activity_main_test = findViewById(R.id.activity_main_test);
+//        activity_main_test.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View v, MotionEvent event) {
 //                switch (event.getAction()) {
 //                    case MotionEvent.ACTION_DOWN:
-//                        main_test.setText("11111");
+//                        activity_main_test.setText("11111");
 //                        break;
 //                    case MotionEvent.ACTION_UP:
-//                        main_test.setText("22222");
+//                        activity_main_test.setText("22222");
 //                        break;
 //                    default:
 //                        break;
@@ -149,45 +149,13 @@ public class test extends Activity implements View.OnClickListener, AudioManager
                 Intent webView = new Intent(this, WebViewActivity.class);
                 startActivity(webView);
                 break;
-            case R.id.test:
+            case R.id.image_view:
                 Intent intent = new Intent(this, ImageActivity.class);
 //                startActivity(intent,;
                 startActivityForResult(intent, 1);
 
                 break;
-            case R.id.prepare:
-                //        Log.d("main_test", "onCreate: " + this.getFilesDir() + "----------------" + this.fileList().toString());
-                String s = this.getFilesDir() + "/" + "recode";
-                File dir = new File(s);
-                if (!dir.exists()) {
-                    //noinspection ResultOfMethodCallIgnored
-                    dir.mkdirs();
-                }
-                manager = AudioManager.getInstance(s);
-                manager.setOnAudioStateListener(this);
-                Toast.makeText(this, "prepare", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.start:
-                Toast.makeText(this, "start", Toast.LENGTH_SHORT).show();
-                manager.prepareAudio();
-                break;
-            case R.id.over:
-                Toast.makeText(this, "over", Toast.LENGTH_SHORT).show();
-                manager.release();
-                break;
-            case R.id.play:
-                Toast.makeText(this, "play", Toast.LENGTH_SHORT).show();
-                MediaManager.playSound(this, manager.getCurrentPath(), new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        Toast.makeText(test.this, "play.................over", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                break;
-            case R.id.delete:
-                Toast.makeText(test.this, "delete.................???", Toast.LENGTH_SHORT).show();
-                manager.cancel();
-                break;
+
             case R.id.Permissions:
                 if (Build.VERSION.SDK_INT >= 23) {//判断当前系统是不是Android6.0
                     requestRuntimePermissions(PERMISSIONS_STORAGE, new PermissionListener() {
@@ -201,15 +169,19 @@ public class test extends Activity implements View.OnClickListener, AudioManager
                             //权限申请未通过
 //                            for (String denied : deniedList) {
 //                                if (denied.equals("android.permission.ACCESS_FINE_LOCATION")) {
-//                                    Toast.makeText(main_test.this, "start", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(activity_main_test.this, "start", Toast.LENGTH_SHORT).show();
 //                                } else {
-//                                    Toast.makeText(main_test.this, "start", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(activity_main_test.this, "start", Toast.LENGTH_SHORT).show();
 //                                }
 //                            }
-                            Log.d("main_test", "denied: " + deniedList.toString());
+                            Log.d("activity_main_test", "denied: " + deniedList.toString());
                         }
                     });
                 }
+                break;
+
+            case R.id.audio_test:
+                startActivity(new Intent(this, AudioActivity.class));
                 break;
             case R.id.phone_number:
                 addContactPhoneNumber("我自己啊", new String[]{"15527017729", "123123123", "321321321"});
@@ -217,89 +189,16 @@ public class test extends Activity implements View.OnClickListener, AudioManager
             case R.id.delete_phone_number:
                 try {
                     testDelete();
-                    Toast.makeText(test.this, "delete.................ok", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.date:
-
-//                上传
-                try {
-//                    String AccessKey = "yV-7Mf7qwqHNDAlYNTVmaI9XzcOI63BHK8bhhEBi";//  AK
-//                    String SecretKey = "-JqewMs7OnvdMRjpNAdqCbhDMY8KvqbWSFfnQtfu";//SK
-
-
-//                    String AccessKey = "1v0flI4KTNjPAFlCMl8_JeIgHfJtfIFVzKAGCidC";//  AK  renhe
-//                    String SecretKey = "YSpnaCpayLY-0Snc28yO_x516Jssi9zuUliEN4Pa";//SK
-
-
-                    long time = (System.currentTimeMillis() / 1000) + 60 * 60;
-
-                    Toast.makeText(test.this, time + "", Toast.LENGTH_SHORT).show();
-
-                    String scope = "rhwytzg" + ":" + manager.getFileName();
-                    String deadline = String.valueOf(time);
-
-                    String key = manager.getFileName();
-                    Configuration config = new Configuration.Builder()
-                            .zone(AutoZone.autoZone)
-                            .build();
-                    UploadManager uploadManager = new UploadManager(config);
-                    uploadManager.put(manager.getCurrentPath(), key, tokenupload(scope, deadline),
-                            new UpCompletionHandler() {
-                                @Override
-                                public void complete(String key, ResponseInfo info, JSONObject res) {
-                                    Log.d("main_test?????", "complete: " + info.toString());
-                                    //res包含hash、key等信息，具体字段取决于上传策略的设置
-                                    if (info.isOK()) {
-                                        Log.d("testsdadada", "Upload Success");
-                                    } else {
-                                        Log.d("testasasdadasd", "Upload Fail");
-                                        //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
-                                    }
-                                    Log.d("main_test", key + ",\r\n " + info + ",\r\n " + res);
-                                }
-                            }, null);
+                    Toast.makeText(MainTest.this, "delete.................ok", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
 
-            case R.id.download:
-//                下载
-                String http = "http://img-qn.rhxzhj.com";
-                AsyncHttpClient httpClient = new AsyncHttpClient();
-                httpClient.setURLEncodingEnabled(false);
-                Log.d("main_test", "onClick: " + http + "/" + manager.getFileName());
-                String[] allowedContentTypes = new String[]{"audio/amr"};
-//                String[] allowedContentTypes = new String[] {"application/vnd.android.package-archive"};
-                httpClient.get(http + "/" + manager.getFileName(), new BinaryHttpResponseHandler(allowedContentTypes) {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] binaryData) {
-                        String tempPath = test.getContext().getFilesDir() + "/" + "recode" + "/" + "main_test" + manager.getFileName();
-                        Log.d("main_test", "onSuccess: " + binaryData.toString());
-                        byteToFile(binaryData, tempPath);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] binaryData, Throwable error) {
-                        Log.d("main_test", "onFailure: --------->" + statusCode + error);
-                    }
-                });
-                break;
-            case R.id.download_play:
-                Toast.makeText(this, "download_paly", Toast.LENGTH_SHORT).show();
-                MediaManager.playSound(this, test.getContext().getFilesDir() + "/" + "recode" + "/" + "main_test" + manager.getFileName(), new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        Toast.makeText(test.this, "play.................over", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                break;
 
             case R.id.time_picker:
-                MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+                //ok http  实例
+//                MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
 //                String requestBody = "{"type":"1"}";
 //                JSONObject requestBody = new JSONObject();
 //                JsonHelper.put(requestBody, "type", "3");
@@ -307,36 +206,36 @@ public class test extends Activity implements View.OnClickListener, AudioManager
 //                String aaa = "15527017729";
 //                String bbb = "2";
 
-//                Log.d("main_test", "onClick: " + "http://120.26.60.230:8180/charm-mmc/api/v1/common/sms/vcode/" + aaa + "," + bbb);
+//                Log.d("activity_main_test", "onClick: " + "http://120.26.60.230:8180/charm-mmc/api/v1/common/sms/vcode/" + aaa + "," + bbb);
 
-                Request request = new Request.Builder()
-                        .url("http://120.26.60.230:8180/charm-mmc/api/v1/app/whAppUser/getEncryptToken?tokenKey=get")
-                        .get()
-                        .build();
-                OkHttpClient okHttpClient = new OkHttpClient();
-                okHttpClient.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.d("main_test", "onFailure: " + e.getMessage());
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        Log.d("main_test", response.protocol() + " " + response.code() + " " + response.message());
-                        Headers headers = response.headers();
-                        for (int i = 0; i < headers.size(); i++) {
-                            Log.d("main_test", headers.name(i) + ":" + headers.value(i));
-                        }
-//                        Log.d("main_test", "onResponse: " + response.body().string());
-
-                        String sss = response.body().string();
-                        Log.d("main_test", "onResponse: " + sss);
-                        TokenBean bean = GsonUtils.jsonToBean(sss, TokenBean.class);
-
-                        Log.d("main_test", "onResponse: " + bean.getData().getTokenInfo().getUserKey());
-
-                    }
-                });
+//                Request request = new Request.Builder()
+//                        .url("http://120.26.60.230:8180/charm-mmc/api/v1/app/whAppUser/getEncryptToken?tokenKey=get")
+//                        .get()
+//                        .build();
+//                OkHttpClient okHttpClient = new OkHttpClient();
+//                okHttpClient.newCall(request).enqueue(new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//                        Log.d("activity_main_test", "onFailure: " + e.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+//                        Log.d("activity_main_test", response.protocol() + " " + response.code() + " " + response.message());
+//                        Headers headers = response.headers();
+//                        for (int i = 0; i < headers.size(); i++) {
+//                            Log.d("activity_main_test", headers.name(i) + ":" + headers.value(i));
+//                        }
+////                        Log.d("activity_main_test", "onResponse: " + response.body().string());
+//
+//                        String sss = response.body().string();
+//                        Log.d("activity_main_test", "onResponse: " + sss);
+//                        TokenBean bean = GsonUtils.jsonToBean(sss, TokenBean.class);
+//
+//                        Log.d("activity_main_test", "onResponse: " + bean.getData().getTokenInfo().getUserKey());
+//
+//                    }
+//                });
                 showPickTime();
                 break;
         }
@@ -373,11 +272,6 @@ public class test extends Activity implements View.OnClickListener, AudioManager
     }
 
 
-    @Override
-    public void wellPrepared() {
-        Toast.makeText(this, "well", Toast.LENGTH_SHORT).show();
-    }
-
     /**
      * 申请权限
      */
@@ -410,7 +304,7 @@ public class test extends Activity implements View.OnClickListener, AudioManager
             public void onTimeSelect(Date date, View v) {
                 SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd HH点mm分");
                 textView.setText(formatter.format(date));
-//                Log.d("main_test", "onTimeSelect: " + formatter.format(date));
+//                Log.d("activity_main_test", "onTimeSelect: " + formatter.format(date));
             }
         }).setTitleText("上门时间")
                 .setType(new boolean[]{true, true, true, true, true, false})

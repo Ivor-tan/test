@@ -4,12 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -47,7 +45,7 @@ public class WebViewActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.web_view);
+        setContentView(R.layout.activity_web_view);
         ViewUtils.inject(this);
 
 
@@ -64,7 +62,7 @@ public class WebViewActivity extends Activity implements View.OnClickListener {
 //        file:///android_asset/web/    文件名、目录   =====》 小写  《=====
 //        http://120.26.60.230:8180/dist/index.html#/
 //        http://120.26.60.230:8180/dist/appindex.html#/
-        Log.d("main_test", "webOperate: ");
+        Log.d("activity_main_test", "webOperate: ");
         webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl("http://120.26.60.230:8180/dist/appindex.html#/");
@@ -86,17 +84,17 @@ public class WebViewActivity extends Activity implements View.OnClickListener {
 //         "coordinateY": "37.5540950",
         switch (v.getId()) {
             case R.id.jsLocate_button_web_View:
-                Log.d("main_test", "onClick: 1111111111111");
+                Log.d("activity_main_test", "onClick: 1111111111111");
                 getlocate();
                 webView.loadUrl("javascript:jsLocate('" + lat + "','" + lng + "')");
                 break;
 
             case R.id.jsSearch_button_web_View:
-                Log.d("main_test", "onClick: 222222222222");
+                Log.d("activity_main_test", "onClick: 222222222222");
                 webView.loadUrl("javascript:jsSearch('" + "富海小区" + "')");
                 break;
             case R.id.simpleMap_button_web_View:
-                Log.d("main_test", "onClick: 333333333333");
+                Log.d("activity_main_test", "onClick: 333333333333");
 //                simpleMap("陈家山村E", "121.960616", "37.3322972")
 //                webView.loadUrl("javascript:simpleMap('" + travelGsonData.getName() + "','" + travelGsonData.getLat() + "','" +
 //                        travelGsonData.getLng() + "')");
