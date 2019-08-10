@@ -1,4 +1,4 @@
-package com.example.mytest.Utils.utils;
+package com.example.myTest.Utils.utils;
 
 import com.qiniu.android.dns.util.Hex;
 

@@ -1,4 +1,4 @@
-package com.example.mytest.Utils;
+package com.example.myTest.Utils;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -7,7 +7,6 @@ import com.qiniu.android.utils.StringUtils;
 import com.qiniu.android.utils.UrlSafeBase64;
 
 import org.apache.commons.codec.binary.Base64;
-import org.json.JSONObject;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -19,8 +18,6 @@ import java.util.Locale;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-
-import static android.media.AudioRecord.MetricsConstants.ENCODING;
 
 
 public class QiniuToken {

@@ -1,4 +1,4 @@
-package com.example.mytest.Activity;
+package com.example.myTest.Activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.test.my.R;
 
 import java.io.File;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

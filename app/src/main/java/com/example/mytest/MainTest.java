@@ -1,72 +1,39 @@
-package com.example.mytest;
+package com.example.myTest;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.example.mytest.Activity.AudioActivity;
-import com.example.mytest.Activity.CameraActivity;
-import com.example.mytest.Activity.ImageActivity;
-import com.example.mytest.Activity.WebViewActivity;
-import com.example.mytest.Listener.PermissionListener;
-import com.example.mytest.Utils.AudioManager;
-import com.example.mytest.Utils.GsonUtils;
-import com.example.mytest.Utils.MediaManager;
-import com.example.mytest.bean.TokenBean;
+import com.example.myTest.Activity.AudioActivity;
+import com.example.myTest.Activity.CameraActivity;
+import com.example.myTest.Activity.ImageActivity;
+import com.example.myTest.Activity.SocketTestActivity;
+import com.example.myTest.Activity.SystemContactActivity;
+import com.example.myTest.Activity.WebSocketActivity;
+import com.example.myTest.Activity.WebViewActivity;
+import com.example.myTest.Listener.PermissionListener;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.BinaryHttpResponseHandler;
-import com.qiniu.android.common.AutoZone;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.Configuration;
 
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UploadManager;
 import com.test.my.R;
 
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-import static com.example.mytest.Utils.FileUtils.byteToFile;
-import static com.example.mytest.Utils.QiniuToken.tokenupload;
 
 public class MainTest extends Activity implements View.OnClickListener {
 
@@ -86,32 +53,19 @@ public class MainTest extends Activity implements View.OnClickListener {
 
         initView();
         initData();
-
-
-//        byte[] sk = StringUtils.utf8Bytes("YSpnaCpayLY-0Snc28yO_x516Jssi9zuUliEN4Pa");
-//        SecretKeySpec secretKey = new SecretKeySpec(sk, "HmacSHA1");
-//        Mac mac;
-//        try {
-//            mac = javax.crypto.Mac.getInstance("HmacSHA1");
-//            mac.init(secretKey);
-//        } catch (GeneralSecurityException e) {
-//            e.printStackTrace();
-//            throw new IllegalArgumentException(e);
-//        }
-//        String encodedSign = UrlSafeBase64.encodeToString(mac.doFinal(object.toString().getBytes()));
-
     }
 
     private void initView() {
         ViewUtils.inject(this);
         int[] ids = new int[]{R.id.image_view,
                 R.id.time_picker,
-                R.id.phone_number,
-                R.id.delete_phone_number,
+                R.id.system_contact,
                 R.id.web_View,
                 R.id.camera,
                 R.id.Permissions,
-                R.id.audio_test
+                R.id.audio_test,
+                R.id.socket,
+                R.id.web_socket
         };
         for (int id : ids) {
             findViewById(id).setOnClickListener(this);
@@ -142,6 +96,12 @@ public class MainTest extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.web_socket:
+                startActivity(new Intent(this, WebSocketActivity.class));
+                break;
+            case R.id.socket:
+                startActivity(new Intent(this, SocketTestActivity.class));
+                break;
             case R.id.camera:
                 startActivity(new Intent(this, CameraActivity.class));
                 break;
@@ -151,9 +111,7 @@ public class MainTest extends Activity implements View.OnClickListener {
                 break;
             case R.id.image_view:
                 Intent intent = new Intent(this, ImageActivity.class);
-//                startActivity(intent,;
                 startActivityForResult(intent, 1);
-
                 break;
 
             case R.id.Permissions:
@@ -183,18 +141,9 @@ public class MainTest extends Activity implements View.OnClickListener {
             case R.id.audio_test:
                 startActivity(new Intent(this, AudioActivity.class));
                 break;
-            case R.id.phone_number:
-                addContactPhoneNumber("我自己啊", new String[]{"15527017729", "123123123", "321321321"});
+            case R.id.system_contact:
+                startActivity(new Intent(this, SystemContactActivity.class));
                 break;
-            case R.id.delete_phone_number:
-                try {
-                    testDelete();
-                    Toast.makeText(MainTest.this, "delete.................ok", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-
 
             case R.id.time_picker:
                 //ok http  实例
@@ -240,6 +189,7 @@ public class MainTest extends Activity implements View.OnClickListener {
                 break;
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -311,57 +261,6 @@ public class MainTest extends Activity implements View.OnClickListener {
                 .setBgColor(Color.rgb(255, 255, 255))
                 .setTitleBgColor(Color.rgb(255, 255, 255)).build();
         timePickerView.show();
-    }
-
-    /*
-     * 添加系统联系人
-     * */
-    private void addContactPhoneNumber(String name, String[] number) {
-        Toast.makeText(this, "success?", Toast.LENGTH_SHORT).show();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-
-            //创建一个空的ContentValues
-            ContentValues values = new ContentValues();
-            //首先向RawContacts.CONTENT_URI执行一个空值插入，目的是获取系统返回的rawContactId
-            Uri rawContactUri = getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, values);
-            long rawContactId = ContentUris.parseId(rawContactUri);
-            //往data表插入姓名数据
-            values.clear();
-            values.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
-            values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);//内容类型
-            values.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, name);//设置联系人名字
-            getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);//向联系人URI添加联系人名字
-            //往data表插入电话数据
-            for (int i = 0; i < number.length; i++) {
-                values.clear();
-                values.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
-                values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-                values.put(ContactsContract.CommonDataKinds.Phone.NUMBER, number[i]);
-                values.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);//插入手机号码
-                getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
-
-
-            }
-        }
-    }
-
-    /**
-     * 删除系统联系人，部分机型无法删除
-     */
-    private void testDelete() throws Exception {
-        String name = "我自己啊";
-        //根据姓名求id
-        Uri uri = Uri.parse("content://com.android.contacts/raw_contacts");
-        ContentResolver resolver = this.getContentResolver();
-        Cursor cursor = resolver.query(uri, new String[]{ContactsContract.Data._ID}, "display_name=?", new String[]{name}, null);
-        if (cursor.moveToFirst()) {
-            int id = cursor.getInt(0);
-            //根据id删除data中的相应数据
-            resolver.delete(uri, "display_name=?", new String[]{name});
-            uri = Uri.parse("content://com.android.contacts/data");
-            resolver.delete(uri, "raw_contact_id=?", new String[]{id + ""});
-        }
     }
 
 

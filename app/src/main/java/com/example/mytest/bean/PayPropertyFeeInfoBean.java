@@ -1,7 +1,4 @@
-package com.example.mytest.bean;
-
-import java.util.List;
-
+package com.example.myTest.bean;
 
 
 public class PayPropertyFeeInfoBean {

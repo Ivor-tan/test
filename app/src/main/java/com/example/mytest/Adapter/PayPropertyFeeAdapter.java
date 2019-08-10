@@ -1,4 +1,4 @@
-package com.example.mytest.Adapter;
+package com.example.myTest.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.example.mytest.bean.PayPropertyFeeInfoBean;
+import com.example.myTest.bean.PayPropertyFeeInfoBean;
 import com.test.my.R;
 
 import java.util.ArrayList;

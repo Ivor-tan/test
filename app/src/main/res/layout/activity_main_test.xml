@@ -31,6 +31,22 @@
                 android:gravity="center" />
 
             <Button
+                android:id="@+id/web_socket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="web_socket" />
+            <Button
+                android:id="@+id/socket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="socket" />
+            <Button
+                android:id="@+id/Permissions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Permissions" />
+
+            <Button
                 android:id="@+id/camera"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,23 +64,10 @@
                 android:text="Audio" />
 
             <Button
-                android:id="@+id/Permissions"
+                android:id="@+id/system_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Permissions" />
-
-            <Button
-                android:id="@+id/phone_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="add_phone_number" />
-
-            <Button
-                android:id="@+id/delete_phone_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="delete_phone_number" />
-
+                android:text="system_contact" />
 
             <Button
                 android:id="@+id/time_picker"

@@ -3,14 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.test.my">
 
+
+    <!--允许应用程序改变网络状态-->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+
+    <!--允许应用程序改变WIFI连接状态-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
+    <!--允许应用程序访问有关的网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!--允许应用程序访问WIFI网卡的网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <!--允许应用程序完全使用网络-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /><!-- 定位相关 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /><!-- 定位相关 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 录音 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" /><!-- 网络 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 网络的权限 -->
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!-- 内存读写 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -26,13 +40,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name="com.example.mytest.Activity.PayFeeInfoActivity"></activity>
-        <activity android:name="com.example.mytest.Activity.ImageActivity" />
-        <activity android:name="com.example.mytest.Activity.WebViewActivity" />
-        <activity android:name="com.example.mytest.Activity.CameraActivity" />
-        <activity android:name="com.example.mytest.Activity.AudioActivity" />
+        <activity android:name="com.example.myTest.Activity.PayFeeInfoActivity"></activity>
+        <activity android:name="com.example.myTest.Activity.ImageActivity" />
+        <activity android:name="com.example.myTest.Activity.WebViewActivity" />
+        <activity android:name="com.example.myTest.Activity.CameraActivity" />
+        <activity android:name="com.example.myTest.Activity.AudioActivity" />
+        <activity android:name="com.example.myTest.Activity.SystemContactActivity" />
+        <activity android:name="com.example.myTest.Activity.SocketTestActivity" />
+        <activity android:name="com.example.myTest.Activity.WebSocketActivity" />
 
-        <activity android:name="com.example.mytest.MainTest">
+        <activity android:name="com.example.myTest.MainTest">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,7 +58,7 @@
         </activity>
 
         <provider
-            android:authorities="com.example.mytest"
+            android:authorities="com.example.myTest"
             android:name="android.support.v4.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

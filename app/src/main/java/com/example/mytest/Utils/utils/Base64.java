@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.example.mytest.Utils.utils;
+package com.example.myTest.Utils.utils;
 
 import java.io.UnsupportedEncodingException;
 

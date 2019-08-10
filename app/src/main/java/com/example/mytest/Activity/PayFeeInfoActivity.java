@@ -1,4 +1,4 @@
-package com.example.mytest.Activity;
+package com.example.myTest.Activity;
 
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +11,7 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.mytest.bean.PayPropertyFeeInfoBean;
+import com.example.myTest.bean.PayPropertyFeeInfoBean;
 import com.test.my.R;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;

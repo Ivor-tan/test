@@ -1,4 +1,4 @@
-package com.example.mytest.Activity;
+package com.example.myTest.Activity;
 
 import android.app.Activity;
 import android.media.MediaPlayer;
@@ -9,9 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.example.mytest.MainTest;
-import com.example.mytest.Utils.AudioManager;
-import com.example.mytest.Utils.MediaManager;
+import com.example.myTest.Utils.Audio.AudioManager;
+import com.example.myTest.Utils.Audio.MediaManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.qiniu.android.common.AutoZone;
@@ -27,8 +26,8 @@ import java.io.File;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.example.mytest.Utils.FileUtils.byteToFile;
-import static com.example.mytest.Utils.QiniuToken.tokenupload;
+import static com.example.myTest.Utils.File.FileUtils.byteToFile;
+import static com.example.myTest.Utils.QiniuToken.tokenupload;
 
 public class AudioActivity extends Activity implements View.OnClickListener, AudioManager.AudioStateListener {
 
