@@ -183,7 +183,7 @@ public class CameraActivity extends Activity {
 
         if (Build.VERSION.SDK_INT >= 24) {
             imageUri = FileProvider.getUriForFile(CameraActivity.this,
-                    "com.example.mytest", outputImage);
+                    "com.example.myTest", outputImage);
         } else {
             imageUri = Uri.fromFile(outputImage);
         }
