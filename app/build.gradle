@@ -92,5 +92,9 @@ dependencies {
 
     implementation 'com.github.0xZhangKe:WebSocketDemo:3.0.1'//WebSocket
 
+    implementation "org.java-websocket:Java-WebSocket:1.4.0"//Java_WebSocket
+
+    implementation 'com.bravin.btoast:BToast:+'//toast  https://blog.csdn.net/tingfengzheshuo/article/details/81183705
+
 
 }

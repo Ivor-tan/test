@@ -8,6 +8,8 @@
         android:id="@+id/web_text_show"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_250"
+        android:text="测试"
+        android:gravity="center"
         android:background="@color/blue" />
 
     <Button

@@ -1,7 +1,6 @@
-package com.example.myTest.ViewUtils;
+package com.example.myTest.Utils.View;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
