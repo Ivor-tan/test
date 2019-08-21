@@ -20,11 +20,13 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.myTest.Activity.AudioActivity;
 import com.example.myTest.Activity.CameraActivity;
 import com.example.myTest.Activity.ImageActivity;
+import com.example.myTest.Activity.RxJavaActivity;
 import com.example.myTest.Activity.SocketTestActivity;
 import com.example.myTest.Activity.SystemContactActivity;
 import com.example.myTest.Activity.WebSocketActivity;
 import com.example.myTest.Activity.WebViewActivity;
 import com.example.myTest.Listener.PermissionListener;
+import com.example.netutileapp.RequestLoader;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -34,6 +36,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+
+import io.reactivex.Observable;
+import io.reactivex.observers.DisposableObserver;
 
 public class MainTest extends Activity implements View.OnClickListener {
 
@@ -57,7 +63,9 @@ public class MainTest extends Activity implements View.OnClickListener {
 
     private void initView() {
         ViewUtils.inject(this);
-        int[] ids = new int[]{R.id.image_view,
+        int[] ids = new int[]{
+                R.id.RxJava,
+                R.id.image_view,
                 R.id.time_picker,
                 R.id.system_contact,
                 R.id.web_View,
@@ -90,12 +98,41 @@ public class MainTest extends Activity implements View.OnClickListener {
     }
 
     private void initData() {
+//      String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxNTA3MTAyNzYyMCIsImlhdCI6MTU2NTkyODc0Niwic3ViIjoie1widXNlcklkXCI6NDY0MH0iLCJpc3MiOiJSSF9CVVNTSU5FU1NfSldUIiwiZXhwIjoxNTY4NTIwNzQ2fQ.L4GsMN7dSFU7IkDqnakH61OiHGSI0p0n94S50RfCBC8";
+        RequestLoader requestLoader = new RequestLoader("");
+        Observable<Object> objectObservable = requestLoader.mMovieService.login();
+        requestLoader.toSubscribe(objectObservable, new DisposableObserver<Object>() {
+            @Override
+            public void onNext(Object o) {
+                Log.d("test", "onNext: 000" + o.toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("test", "onNext:11111 ");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("test", "onNext:22222 ");
+            }
+        });
+
+
+//
+//        requestLoader.toSubscribe(objectObservable, new DisposableObserver<T>() {
+//        });
+
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+            case R.id.RxJava:
+                startActivity(new Intent(this, RxJavaActivity.class));
+                break;
             case R.id.web_socket:
                 startActivity(new Intent(this, WebSocketActivity.class));
                 break;

@@ -3,6 +3,8 @@ package com.example.myTest.constant;
 public class Constants {
 
     public static class Flag {
+
+
         public static final String POI_ID = "poi_id";
         public static final String URL = "url";
         public static final String SEARCH_LOCATION = "search_location";
