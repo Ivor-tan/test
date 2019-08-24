@@ -27,7 +27,7 @@ public class Constants {
 
         public static final String DETAIL_MAP_URL = "http://139.129.90.117:8180/dist/appindex.html#/";//详情
 
-        public static final String Dofuntech_URL = "http://139.129.90.117:8180/charm-mmc";//魅力威海  客户服务器 URL
+        public static final String Dofuntech_URL = "http://139.129.90.117:8180/charm-mmc/";//魅力威海  客户服务器 URL
 
 //        public static final String Dofuntech_URL = "http://116.255.145.242:8801/charm-mmc";//魅力威海 敦锋服务器 URL
 

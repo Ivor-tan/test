@@ -16,6 +16,7 @@ android {
         testInstrumentationRunner "android.support.activity_main_test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 28
         renderscriptSupportModeEnabled true
+        multiDexEnabled true    //  多索引启用  解决依赖冲突
     }
     buildTypes {
         release {
@@ -96,14 +97,14 @@ dependencies {
     implementation 'com.bravin.btoast:BToast:+'
     //toast  https://blog.csdn.net/tingfengzheshuo/article/details/81183705
 
-//    implementation 'com.squareup.retrofit2:retrofit:2.3.0'//导入retrofit
-////    compile 'com.google.code.gson:gson:2.6.2'//Gson 库
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'//导入retrofit
+//    compile 'com.google.code.gson:gson:2.6.2'//Gson 库
 //    //下面两个是RxJava 和 RxAndroid
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.x.y'
-    implementation project(path: ':netutileapp')
-//    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'//转换器，请求结果转换成Model
-//    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'//配合Rxjava 使用
+//    implementation project(path: ':netutileapp')
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'//转换器，请求结果转换成Model
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'//配合Rxjava 使用
 //    implementation project(':netutileapp')
 
 }

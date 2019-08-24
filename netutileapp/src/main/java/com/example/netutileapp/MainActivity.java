@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         map1.put("biz",new Gson().toJson(map));
 
         Observable<Object> objectObservable = requestLoader.mMovieService.get(map1);
+
         requestLoader.toSubscribe(objectObservable, new DisposableObserver<Object>() {
             @Override
             public void onNext(Object o) {
