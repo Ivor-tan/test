@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.test.my">
+    package="com.example.myTest">
 
 
     <!--允许应用程序改变网络状态-->
@@ -44,7 +44,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name="com.example.myTest.Activity.PayFeeInfoActivity"></activity>
+        <activity android:name="com.example.myTest.Activity.PayFeeInfoActivity"/>
         <activity android:name="com.example.myTest.Activity.ImageActivity" />
         <activity android:name="com.example.myTest.Activity.WebViewActivity" />
         <activity android:name="com.example.myTest.Activity.CameraActivity" />
