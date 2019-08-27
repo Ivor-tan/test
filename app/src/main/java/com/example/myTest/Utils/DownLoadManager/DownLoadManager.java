@@ -1,5 +1,6 @@
 package com.example.myTest.Utils.DownLoadManager;
 
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -11,7 +12,7 @@ import okhttp3.ResponseBody;
 
 public class DownLoadManager {
     //Log标记
-    private static final String TAG = "eeeee";
+    private static final String TAG = "test";
     //APK文件类型
     private static String APK_CONTENTTYPE = "application/vnd.android.package-archive";
     //PNG文件类型
@@ -19,15 +20,17 @@ public class DownLoadManager {
     //JPG文件类型
     private static String JPG_CONTENTTYPE = "image/jpg";
     //文件后缀名
-    private static String fileSuffix="";
+    private static String fileSuffix = "";
+
 
     /**
      * 写入文件到本地
-     * @param file
+     *
+     * @param name
      * @param body
      * @return
      */
-    public static boolean  writeResponseBodyToDisk(File file, ResponseBody body) {
+    public static boolean writeResponseBodyToDisk(String name, ResponseBody body, ProgressListener progressListener) {
 
         //下载文件类型判断，并对fileSuffix赋值
         String type = body.contentType().toString();
@@ -37,16 +40,25 @@ public class DownLoadManager {
         } else if (type.equals(PNG_CONTENTTYPE)) {
             fileSuffix = ".png";
         }
-
         // 其他类型同上 需要的判断自己加入.....
-        
+
         //下面就是一顿写入，文件写入的位置是通过参数file来传递的
         InputStream is = null;
         byte[] buf = new byte[2048];
         int len = 0;
         FileOutputStream fos = null;
+        File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString());
+        if (!path.exists()) {
+            path.mkdir();
+        }
 
         try {
+            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + name);
+            if (file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+
             is = body.byteStream();
             long total = body.contentLength();
 
@@ -56,6 +68,7 @@ public class DownLoadManager {
                 fos.write(buf, 0, len);
                 sum += len;
                 int progress = (int) (sum * 1.0f / total * 100);
+                progressListener.onProgress(progress);
             }
             fos.flush();
             return true;
@@ -72,5 +85,10 @@ public class DownLoadManager {
             } catch (IOException e) {
             }
         }
+    }
+
+
+    public interface ProgressListener {
+        void onProgress(int progress);
     }
 }

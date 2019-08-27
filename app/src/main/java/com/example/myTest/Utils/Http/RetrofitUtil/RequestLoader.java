@@ -15,6 +15,7 @@ public class RequestLoader  {
     public <T> void toSubscribe(Observable<T> o, DisposableObserver<T> s) {
 
         o.subscribeOn(Schedulers.io())
+
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .retry(3)//请求失败重连次数

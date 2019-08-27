@@ -1,5 +1,6 @@
 package com.example.myTest.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.bravin.btoast.BToast;
 import com.example.myTest.Utils.DownLoadManager.DownLoadManager;
 import com.example.myTest.Utils.Http.RetrofitUtil.RequestLoader;
 import com.example.myTest.bean.RxJava_test_bean;
@@ -21,19 +24,19 @@ import com.example.myTest.R;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -59,6 +62,9 @@ public class RxJavaActivity extends Activity {
     @ViewInject(R.id.RxJava_data5)
     private Button RxJava_data5;
 
+    @ViewInject(R.id.RxJava_Progress)
+    private TextView RxJava_Progress;
+
     private final String TAG = "RxJavaActivity---->";
 
     private CommonAdapter<RxJava_test_bean> commonAdapter;
@@ -66,6 +72,7 @@ public class RxJavaActivity extends Activity {
 
     private String apk_download = "http://gdown.baidu.com/data/wisegame/";
     private String apk = "ab30ed59c5f341f4/baidushoujizhushou_16797445.apk";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,16 +108,20 @@ public class RxJavaActivity extends Activity {
         }
     }
 
+    //文件下载
     private void initData5() {
         RequestLoader requestLoader = new RequestLoader("", apk_download);
 
-        Observable<Boolean> observable = requestLoader.mMovieService.retrofitDownloadFile(apk).map(new Function<ResponseBody, Boolean>() {
-            @Override
-            public Boolean apply(ResponseBody responseBody) throws Exception {
-//                DownLoadManager.writeResponseBodyToDisk(new File(getFilesDir() + "11111111.apk"), responseBody);
-                return DownLoadManager.writeResponseBodyToDisk(new File(getFilesDir() + "/" + System.currentTimeMillis() + ".apk"), responseBody);
-            }
-        });
+        Observable<Boolean> observable = requestLoader.mMovieService.retrofitDownloadFile(apk)
+                .map(new Function<ResponseBody, Boolean>() {
+                    @Override
+                    public Boolean apply(ResponseBody responseBody) throws Exception {
+
+                        initData5_updateView(responseBody);
+
+                        return true;
+                    }
+                });
 //
         requestLoader.toSubscribe(observable, new DisposableObserver<Boolean>() {
             @Override
@@ -131,11 +142,62 @@ public class RxJavaActivity extends Activity {
 
     }
 
+    private void initData5_updateView(ResponseBody responseBody) {
+
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                DownLoadManager.writeResponseBodyToDisk(System.currentTimeMillis() + ".apk", responseBody, new DownLoadManager.ProgressListener() {
+                    @Override
+                    public void onProgress(int progress) {
+                        emitter.onNext(progress);
+                    }
+                });
+                emitter.onComplete();
+            }
+        })
+                .observeOn(AndroidSchedulers.mainThread())//回调在主线程
+                .subscribeOn(Schedulers.io())//执行在io线程
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        RxJava_Progress.setText(integer + "%");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        BToast.success(RxJavaActivity.this)
+                                .showIcon(false)
+                                .text("onComplete")
+                                .target(RxJava_data5)
+                                .animate(true)
+                                .show();
+                    }
+                });
+    }
+
     private void initData4() {
 
         RequestLoader requestLoader = new RequestLoader("", Constants.URL.Dofuntech_URL);
 
-        Observable<RxJava_test_bean> observable = requestLoader.mMovieService.login();
+        Observable<RxJava_test_bean> observable = requestLoader.mMovieService.login()
+                .doOnNext(new Consumer<RxJava_test_bean>() {
+                    @Override
+                    public void accept(RxJava_test_bean rxJava_test_bean) throws Exception {
+                        Log.d(TAG, "accept: ====>" + rxJava_test_bean.getCode());
+                    }
+
+                });
 
         requestLoader.toSubscribe(observable, new DisposableObserver<RxJava_test_bean>() {
             @Override
@@ -204,6 +266,7 @@ public class RxJavaActivity extends Activity {
 
 
     private void initData2() {
+
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
@@ -237,6 +300,7 @@ public class RxJavaActivity extends Activity {
                     }
                 });
     }
+
 
     Disposable mDisposable;
 

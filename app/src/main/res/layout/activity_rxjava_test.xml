@@ -36,6 +36,14 @@
         android:layout_height="wrap_content"
         android:text="data5" />
 
+    <TextView
+        android:id="@+id/RxJava_Progress"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center"
+        android:text="0000000"
+        android:textColor="@color/white" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RxJava_RecyclerView_OnNext_test"
         android:layout_width="match_parent"

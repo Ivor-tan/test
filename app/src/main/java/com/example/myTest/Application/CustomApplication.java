@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.test.my.R;
 
 import java.io.File;
 
@@ -42,7 +43,7 @@ public class CustomApplication extends Application {
 //                .setTextColor()// textcolor. default is white
 //                .setErrorColor()// error style background Color default is red
 //                .setInfoColor()// info style background Color default is blue
-//                .setSuccessColor()// success style background Color default is green
+//                .setSuccessColor(R.color.blue1)// success style background Color default is green
 //                .setWarningColor()// waring style background Color default is orange
 //                .setLayoutGravity()// whan show an toast with target, coder can assgin position relative to target. default is BToast.LAYOUT_GRAVITY_BOTTOM
 //                .setLongDurationMillis()// long duration. default is 4500 millisecond
