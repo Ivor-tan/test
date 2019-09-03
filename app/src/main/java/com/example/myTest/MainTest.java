@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,15 +21,17 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.myTest.Activity.AudioActivity;
 import com.example.myTest.Activity.CameraActivity;
 import com.example.myTest.Activity.ImageActivity;
+import com.example.myTest.Activity.QR_code;
 import com.example.myTest.Activity.RxJavaActivity;
 import com.example.myTest.Activity.SocketTestActivity;
 import com.example.myTest.Activity.SystemContactActivity;
 import com.example.myTest.Activity.WebSocketActivity;
 import com.example.myTest.Activity.WebViewActivity;
 import com.example.myTest.Listener.PermissionListener;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
+
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +43,8 @@ import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
 
 public class MainTest extends Activity implements View.OnClickListener {
+
+    private String TAG = "MainTest";
 
     private static PermissionListener mListener;
     private static Activity activity;
@@ -57,11 +62,35 @@ public class MainTest extends Activity implements View.OnClickListener {
 
         initView();
         initData();
+
+        textView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d(TAG, "ACTION_DOWN: ");
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        Log.d(TAG, "ACTION_UP: ");
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        Log.d(TAG, "ACTION_MOVE: ");
+                        break;
+                    case MotionEvent.ACTION_OUTSIDE:
+                        Log.d(TAG, "ACTION_OUTSIDE: ");
+                        break;
+
+                }
+                return MainTest.super.onTouchEvent(event);
+            }
+        });
+
     }
 
     private void initView() {
-        ViewUtils.inject(this);
+        x.view().inject(this);
         int[] ids = new int[]{
+                R.id.QR_code,
                 R.id.RxJava,
                 R.id.image_view,
                 R.id.time_picker,
@@ -125,6 +154,10 @@ public class MainTest extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+            case R.id.QR_code:
+                startActivity(new Intent(this, QR_code.class));
+                break;
 
             case R.id.RxJava:
                 startActivity(new Intent(this, RxJavaActivity.class));

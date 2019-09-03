@@ -51,6 +51,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="download_paly" />
+    <Button
+        android:id="@+id/to_mp3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="to_mp3" />
+    <Button
+        android:id="@+id/mp3_over"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="mp3_over" />
+    <Button
+        android:id="@+id/mp3_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="mp3_up" />
+
+    <Button
+        android:id="@+id/mp3_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="mp3_play" />
+
+    <Button
+        android:id="@+id/mp3_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="mp3_down" />
+
+
 
 
 </LinearLayout>

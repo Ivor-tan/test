@@ -56,7 +56,7 @@ public class ImageActivity extends Activity {
     }
 
     private void initImage() {
-        Glide.with(ImageActivity.this).load("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/c2be152f87fb1a98/thumb.jpg")
+        Glide.with(ImageActivity.this).load("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/c2be152f87fb1a98/image.jpg")
                 .apply(bitmapTransform(new RoundedCornersTransformation(25, 3, RoundedCornersTransformation.CornerType.ALL)))
                 .into(image);
 
@@ -65,10 +65,10 @@ public class ImageActivity extends Activity {
     private void initBanner() {
 
         List<String> imagePaths = new ArrayList<>();
-        imagePaths.add("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/c2be152f87fb1a98/thumb.jpg");
-        imagePaths.add("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/8c99d38f1cac676e/thumb.jpg");
-        imagePaths.add("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/c2be152f87fb1a98/thumb.jpg");
-        imagePaths.add("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/8c99d38f1cac676e/thumb.jpg");
+        imagePaths.add("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/c2be152f87fb1a98/image.jpg");
+        imagePaths.add("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/8c99d38f1cac676e/image.jpg");
+        imagePaths.add("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/c2be152f87fb1a98/image.jpg");
+        imagePaths.add("http://weihai.oss-cn-beijing.aliyuncs.com/4/works/8c99d38f1cac676e/image.jpg");
 
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setIndicatorGravity(BannerConfig.LEFT)

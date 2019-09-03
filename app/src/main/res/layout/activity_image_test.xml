@@ -10,7 +10,7 @@
     <!--<ImageView-->
     <!--android:layout_width="@dimen/dp_100"-->
     <!--android:layout_height="@dimen/dp_100"-->
-    <!--android:src="@drawable/thumb" />-->
+    <!--android:src="@drawable/image" />-->
 
     <!--<View-->
     <!--android:layout_width="@dimen/dp_100"-->
@@ -32,7 +32,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/thumb"
+        android:src="@drawable/image"
         app:corner_radius="7dp" />
 
     <com.youth.banner.Banner

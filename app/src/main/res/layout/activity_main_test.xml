@@ -21,30 +21,41 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="@dimen/dp_50"
                 android:numStars="5"
-                android:stepSize="1"/>
+                android:stepSize="1" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_100"
                 android:background="@color/blue"
-                android:gravity="center" />
+                android:clickable="true"
+                android:gravity="center"
+                android:focusable="true" />
+
+            <Button
+                android:id="@+id/QR_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="QR_code" />
 
             <Button
                 android:id="@+id/RxJava"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="RxJava" />
+
             <Button
                 android:id="@+id/web_socket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="web_socket" />
+
             <Button
                 android:id="@+id/socket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="socket" />
+
             <Button
                 android:id="@+id/Permissions"
                 android:layout_width="match_parent"
@@ -56,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Camera Test" />
+
             <Button
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"

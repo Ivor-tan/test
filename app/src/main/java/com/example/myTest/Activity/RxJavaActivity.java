@@ -17,18 +17,20 @@ import com.example.myTest.Utils.DownLoadManager.DownLoadManager;
 import com.example.myTest.Utils.Http.RetrofitUtil.RequestLoader;
 import com.example.myTest.bean.RxJava_test_bean;
 import com.example.myTest.constant.Constants;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.example.myTest.R;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import org.w3c.dom.Text;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -79,7 +81,7 @@ public class RxJavaActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rxjava_test);
-        ViewUtils.inject(this);
+        x.view().inject(this);
 
         initView();
 //        initData();
@@ -87,7 +89,8 @@ public class RxJavaActivity extends Activity {
 //        initData3();
     }
 
-    @OnClick({R.id.RxJava_data1, R.id.RxJava_data2, R.id.RxJava_data3, R.id.RxJava_data4, R.id.RxJava_data5})
+
+    @Event({R.id.RxJava_data1, R.id.RxJava_data2, R.id.RxJava_data3, R.id.RxJava_data4, R.id.RxJava_data5})
     private void OnClick(View view) {
         switch (view.getId()) {
             case R.id.RxJava_data1:
@@ -171,7 +174,7 @@ public class RxJavaActivity extends Activity {
 
                     @Override
                     public void onError(Throwable e) {
-
+//                        Collections.sort();
                     }
 
                     @Override

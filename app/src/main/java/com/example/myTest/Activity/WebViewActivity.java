@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.ViewUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -17,9 +18,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 import com.example.myTest.R;
+
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 public class WebViewActivity extends Activity implements View.OnClickListener {
     @ViewInject(R.id.test_web_View)
@@ -46,7 +48,7 @@ public class WebViewActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-        ViewUtils.inject(this);
+        x.view().inject(this);
 
 
         jsLocate_button_web_View.setOnClickListener(this);
