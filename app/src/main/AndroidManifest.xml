@@ -53,7 +53,7 @@
         <activity android:name="com.example.myTest.Activity.SocketTestActivity" />
         <activity android:name="com.example.myTest.Activity.WebSocketActivity" />
         <activity android:name="com.example.myTest.Activity.RxJavaActivity" />
-        <activity android:name="com.example.myTest.Activity.QR_code" />
+        <activity android:name="com.example.myTest.Activity.QR_codeActivity" />
 
         <activity android:name="com.example.myTest.MainTest">
             <intent-filter>

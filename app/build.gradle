@@ -112,5 +112,6 @@ dependencies {
     implementation 'com.czt.mp3recorder:library:1.0.4' //mp3格式录音
 
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0' //二维码
+    implementation 'com.google.zxing:core:3.3.0'
 
 }

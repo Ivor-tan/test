@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:textIsSelectable="true"
+        android:id="@+id/QR_code_result"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/blue" />
+
+    <EditText
+        android:id="@+id/QR_code_contents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/QR_code_scan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QR_code_scan" />
+
+    <Button
+        android:id="@+id/QR_code_make"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QR_code_make" />
+
+    <ImageView
+        android:id="@+id/QR_code_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

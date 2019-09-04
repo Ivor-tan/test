@@ -21,7 +21,7 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.myTest.Activity.AudioActivity;
 import com.example.myTest.Activity.CameraActivity;
 import com.example.myTest.Activity.ImageActivity;
-import com.example.myTest.Activity.QR_code;
+import com.example.myTest.Activity.QR_codeActivity;
 import com.example.myTest.Activity.RxJavaActivity;
 import com.example.myTest.Activity.SocketTestActivity;
 import com.example.myTest.Activity.SystemContactActivity;
@@ -37,10 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-
-import io.reactivex.Observable;
-import io.reactivex.observers.DisposableObserver;
 
 public class MainTest extends Activity implements View.OnClickListener {
 
@@ -156,7 +152,7 @@ public class MainTest extends Activity implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.QR_code:
-                startActivity(new Intent(this, QR_code.class));
+                startActivity(new Intent(this, QR_codeActivity.class));
                 break;
 
             case R.id.RxJava:
