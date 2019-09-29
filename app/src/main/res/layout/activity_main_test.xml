@@ -12,6 +12,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <RatingBar
@@ -29,8 +31,27 @@
                 android:layout_height="@dimen/dp_100"
                 android:background="@color/blue"
                 android:clickable="true"
-                android:gravity="center"
-                android:focusable="true" />
+                android:focusable="true"
+                android:gravity="center" />
+
+            <EditText
+                android:id="@+id/main_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="最大值"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/SharedPreferences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SharedPreferences" />
+
+            <Button
+                android:id="@+id/Random"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Random" />
 
             <Button
                 android:id="@+id/QR_code"

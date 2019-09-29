@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.myTest">
+    package="com.example.myTest"
+    android:sharedUserId="com.rh.abc">
 
 
     <!--允许应用程序改变网络状态-->
@@ -54,6 +55,7 @@
         <activity android:name="com.example.myTest.Activity.WebSocketActivity" />
         <activity android:name="com.example.myTest.Activity.RxJavaActivity" />
         <activity android:name="com.example.myTest.Activity.QR_codeActivity" />
+        <activity android:name="com.example.myTest.Activity.SharedPreferencesActivity" />
 
         <activity android:name="com.example.myTest.MainTest">
             <intent-filter>

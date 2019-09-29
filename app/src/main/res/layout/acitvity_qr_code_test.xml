@@ -5,11 +5,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:textIsSelectable="true"
         android:id="@+id/QR_code_result"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/blue" />
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="结果："
+        android:textIsSelectable="true" />
 
     <EditText
         android:id="@+id/QR_code_contents"

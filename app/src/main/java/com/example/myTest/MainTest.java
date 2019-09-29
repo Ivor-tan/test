@@ -12,17 +12,21 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.bravin.btoast.BToast;
 import com.example.myTest.Activity.AudioActivity;
 import com.example.myTest.Activity.CameraActivity;
 import com.example.myTest.Activity.ImageActivity;
 import com.example.myTest.Activity.QR_codeActivity;
 import com.example.myTest.Activity.RxJavaActivity;
+import com.example.myTest.Activity.SharedPreferencesActivity;
 import com.example.myTest.Activity.SocketTestActivity;
 import com.example.myTest.Activity.SystemContactActivity;
 import com.example.myTest.Activity.WebSocketActivity;
@@ -33,10 +37,18 @@ import com.example.myTest.Listener.PermissionListener;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.Semaphore;
 
 public class MainTest extends Activity implements View.OnClickListener {
 
@@ -49,6 +61,9 @@ public class MainTest extends Activity implements View.OnClickListener {
     @ViewInject(R.id.textView)
     private TextView textView;
 
+    @ViewInject(R.id.main_EditText)
+    private EditText main_EditText;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +73,7 @@ public class MainTest extends Activity implements View.OnClickListener {
 
         initView();
         initData();
+        hideInput();
 
         textView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -86,6 +102,8 @@ public class MainTest extends Activity implements View.OnClickListener {
     private void initView() {
         x.view().inject(this);
         int[] ids = new int[]{
+                R.id.SharedPreferences,
+                R.id.Random,
                 R.id.QR_code,
                 R.id.RxJava,
                 R.id.image_view,
@@ -150,7 +168,20 @@ public class MainTest extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.SharedPreferences:
+                startActivity(new Intent(this, SharedPreferencesActivity.class));
+                break;
+            case R.id.Random:
+                if (main_EditText.getText().toString().equals("")) {
+                    BToast.success(this)
+                            .text("请输入范围")
+                            .show();
+                    return;
+                }
+                Random random = new Random();
+                textView.setText((random.nextInt(Integer.valueOf(main_EditText.getText().toString())) + 1) + "");
 
+                break;
             case R.id.QR_code:
                 startActivity(new Intent(this, QR_codeActivity.class));
                 break;
@@ -208,6 +239,30 @@ public class MainTest extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.time_picker:
+
+                ExecutorService newCachedThreadPool = Executors.newCachedThreadPool();
+                ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(4);
+                ScheduledExecutorService newScheduledThreadPool =
+                        Executors.newScheduledThreadPool(4);
+                ExecutorService newSingleThreadExecutor = Executors.newSingleThreadExecutor();
+
+                Semaphore semaphore = new Semaphore(5, true);
+//                semaphore.
+
+                final List<String> list = new ArrayList<String>();
+                List<String> proxyInstance = (List<String>)
+                        Proxy.newProxyInstance(list.getClass().getClassLoader(),
+                                list.getClass().getInterfaces(), new InvocationHandler() {
+                                    @Override
+                                    public Object invoke(Object proxy, Method method, Object[] args) throws
+                                            Throwable {
+                                        return method.invoke(list, args);
+                                    }
+                                });
+                proxyInstance.add("你好");
+                System.out.println(list);
+
+
                 //ok http  实例
 //                MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
 //                String requestBody = "{"type":"1"}";
@@ -249,6 +304,15 @@ public class MainTest extends Activity implements View.OnClickListener {
 //                });
                 showPickTime();
                 break;
+        }
+    }
+
+    protected void hideInput() {
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        View v = getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
     }
 

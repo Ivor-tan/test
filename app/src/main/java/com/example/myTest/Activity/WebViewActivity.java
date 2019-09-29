@@ -67,7 +67,9 @@ public class WebViewActivity extends Activity implements View.OnClickListener {
         Log.d("activity_main_test", "webOperate: ");
         webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl("http://120.26.60.230:8180/dist/appindex.html#/");
+//        webView.loadUrl("file:///android_asset/map1/index.html");
+        webView.loadUrl("file:///android_asset/ParticleEffect/index.html");
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
