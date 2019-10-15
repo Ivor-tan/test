@@ -27,9 +27,10 @@ import com.example.myTest.Activity.ImageActivity;
 import com.example.myTest.Activity.QR_codeActivity;
 import com.example.myTest.Activity.RxJavaActivity;
 import com.example.myTest.Activity.SharedPreferencesActivity;
-import com.example.myTest.Activity.SocketTestActivity;
+import com.example.myTest.Activity.Socket.SocketTestActivity;
 import com.example.myTest.Activity.SystemContactActivity;
-import com.example.myTest.Activity.WebSocketActivity;
+import com.example.myTest.Activity.Socket.WIFITestActivity;
+import com.example.myTest.Activity.Socket.WebSocketActivity;
 import com.example.myTest.Activity.WebViewActivity;
 import com.example.myTest.Listener.PermissionListener;
 
@@ -102,6 +103,7 @@ public class MainTest extends Activity implements View.OnClickListener {
     private void initView() {
         x.view().inject(this);
         int[] ids = new int[]{
+                R.id.WIFI,
                 R.id.SharedPreferences,
                 R.id.Random,
                 R.id.QR_code,
@@ -168,6 +170,9 @@ public class MainTest extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case  R.id.WIFI:
+                startActivity(new Intent(this, WIFITestActivity.class));
+                break;
             case R.id.SharedPreferences:
                 startActivity(new Intent(this, SharedPreferencesActivity.class));
                 break;
@@ -378,7 +383,7 @@ public class MainTest extends Activity implements View.OnClickListener {
         TimePickerView timePickerView = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd HH点mm分");
+                SimpleDateFormat formatter = new SimpleDateFormat("YYYY年MM月dd日 HH点mm分");
                 textView.setText(formatter.format(date));
 //                Log.d("activity_main_test", "onTimeSelect: " + formatter.format(date));
             }
@@ -394,6 +399,10 @@ public class MainTest extends Activity implements View.OnClickListener {
      * 6.0以后系统权限申请 清单
      */
     private static String[] PERMISSIONS_STORAGE = {
+            "android.permission.ACCESS_NETWORK_STATE",
+            "android.permission.CHANGE_NETWORK_STATE",
+
+            "android.permission.WRITE_SETTINGS",
             "android.permission.READ_CONTACTS",
             "android.permission.WRITE_CONTACTS",
             "android.permission.GET_ACCOUNTS",
@@ -406,4 +415,14 @@ public class MainTest extends Activity implements View.OnClickListener {
             "android.permission.ACCESS_FINE_LOCATION",
             "android.permission.ACCESS_COARSE_LOCATION",
             "android.permission.CAMERA"};
+
+//     <!--wifi相关-->
+//    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+//    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+//    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+//    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+//    <!--//允许修改系统设置-->
+//    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+//    tools:ignore="ProtectedPermissions" />
+
 }

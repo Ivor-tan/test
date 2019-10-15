@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/createWifiHot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="createWifiHot" />
+
+    <Button
+        android:id="@+id/close_WifiHot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="close_WifiHot" />
+
+    <Button
+        android:id="@+id/connect_WifiHot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="connect_WifiHot" />
+
+    <Button
+        android:id="@+id/WifiHot_Socket_Server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WifiHot_Socket_Server" />
+
+    <Button
+        android:id="@+id/WifiHot_Socket_Client_Send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WifiHot_Socket_Client_Send" />
+
+</LinearLayout>

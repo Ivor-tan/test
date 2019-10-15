@@ -2,6 +2,9 @@ package com.example.myTest.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +21,7 @@ import com.example.myTest.Utils.Http.RetrofitUtil.RequestLoader;
 import com.example.myTest.bean.RxJava_test_bean;
 import com.example.myTest.constant.Constants;
 import com.example.myTest.R;
+import com.google.gson.Gson;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -35,6 +39,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -106,13 +111,118 @@ public class RxJavaActivity extends Activity {
                 initData4();
                 break;
             case R.id.RxJava_data5:
-                initData5();
+//                initData5();
+                getAPP();
                 break;
         }
     }
 
+
+    int i = 0;
+
+    private class APK {
+        private String packageName;
+        private String url;
+        private String name;
+        private Drawable dIcon;
+
+        public String getPackageName() {
+            return packageName;
+        }
+
+        public void setPackageName(String packageName) {
+            this.packageName = packageName;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Drawable getdIcon() {
+            return dIcon;
+        }
+
+        public void setdIcon(Drawable dIcon) {
+            this.dIcon = dIcon;
+        }
+    }
+
+    List<APK> lists = new ArrayList<>();
+//    PackageManager packageManager = getPackageManager().getInstallerPackageName();
+
+    //获取已安装非系统应用列表
+    private void getAPP() {
+
+        lists.clear();
+        List<ApplicationInfo> packages = getPackageManager().getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+        Observable.just(packages).switchMap(new Function<List<ApplicationInfo>, ObservableSource<List<APK>>>() {
+            @Override
+            public ObservableSource<List<APK>> apply(List<ApplicationInfo> packages) throws Exception {
+                List<APK> list = new ArrayList<>();
+                for (ApplicationInfo app : packages) {
+
+                    i++;
+                    if ((app.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                        APK tmpInfo = new APK();
+
+                        if ("com.rh.app".equals(app.packageName)) {
+                            continue;
+                        }
+//                        tmpInfo.setName(app.loadLabel(packageManager).toString());
+                        tmpInfo.setPackageName(app.packageName);
+//                        tmpInfo.setdIcon(app.loadIcon(packageManager));
+                        list.add(tmpInfo);//如果非系统应用，则添加至appList
+                    }
+                    Log.d("lsc", "循环次数" + i);
+                }
+
+                return Observable.just(list);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<APK>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d("lsc", "Disposable=");
+                    }
+
+                    @Override
+                    public void onNext(List<APK> apks) {
+                        lists.addAll(apks);
+                        commonAdapter.notifyDataSetChanged();
+                        Log.d("lsc", "onNext=" + new Gson().toJson(apks));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("lsc", "onError=");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d("lsc", "onComplete=");
+                    }
+                });
+
+
+    }
+
     //文件下载
     private void initData5() {
+
+
         RequestLoader requestLoader = new RequestLoader("", apk_download);
 
         Observable<Boolean> observable = requestLoader.mMovieService.retrofitDownloadFile(apk)
@@ -269,7 +379,6 @@ public class RxJavaActivity extends Activity {
 
 
     private void initData2() {
-
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {

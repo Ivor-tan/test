@@ -21,6 +21,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
 
+import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
@@ -48,8 +49,6 @@ public class QR_codeActivity extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitvity_qr_code_test);
         x.view().inject(this);
@@ -66,6 +65,7 @@ public class QR_codeActivity extends Activity {
 
     }
     public void scan() {
+
         IntentIntegrator integrator = new IntentIntegrator(this);
         // 设置要扫描的条码类型，ONE_D_CODE_TYPES：一维码，QR_CODE_TYPES-二维码
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);

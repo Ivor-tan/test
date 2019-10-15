@@ -35,6 +35,11 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!--//允许修改系统设置-->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
+
     <application
         android:name="com.example.myTest.Application.CustomApplication"
         android:allowBackup="true"
@@ -51,11 +56,14 @@
         <activity android:name="com.example.myTest.Activity.CameraActivity" />
         <activity android:name="com.example.myTest.Activity.AudioActivity" />
         <activity android:name="com.example.myTest.Activity.SystemContactActivity" />
-        <activity android:name="com.example.myTest.Activity.SocketTestActivity" />
-        <activity android:name="com.example.myTest.Activity.WebSocketActivity" />
+        <activity android:name="com.example.myTest.Activity.Socket.SocketTestActivity" />
+        <activity android:name="com.example.myTest.Activity.Socket.WebSocketActivity" />
         <activity android:name="com.example.myTest.Activity.RxJavaActivity" />
         <activity android:name="com.example.myTest.Activity.QR_codeActivity" />
         <activity android:name="com.example.myTest.Activity.SharedPreferencesActivity" />
+        <activity android:name="com.example.myTest.Activity.Socket.WIFITestActivity" />
+
+
 
         <activity android:name="com.example.myTest.MainTest">
             <intent-filter>

@@ -1,1 +1,1 @@
-include ':app', ':netutileapp'
+include ':app', ':netutileapp', ':unitytoandroid'
