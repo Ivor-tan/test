@@ -424,7 +424,6 @@ public class WifiUtil {
             //配置热点信息
             WifiConfiguration config = new WifiConfiguration();
 
-
             config.SSID = name;
             config.preSharedKey = password;
             config.hiddenSSID = false;

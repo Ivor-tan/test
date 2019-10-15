@@ -32,7 +32,10 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
@@ -44,7 +47,7 @@ import java.util.Date;
 public class WIFITestActivity extends Activity {
     private String TAG = "WIFITestActivity";
     private WifiUtil mWifiUtil;
-
+    private WifiManager mWifiManager;
     @ViewInject(R.id.createWifiHot)
     private Button createWifiHot;
 
@@ -65,8 +68,7 @@ public class WIFITestActivity extends Activity {
 
     private Handler handler;
 
-    private WebSocketManager SocketManager;
-    private WIFITestActivity.MySocketListener mySocketListener;
+    private OutputStream out;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,10 +76,12 @@ public class WIFITestActivity extends Activity {
         setContentView(R.layout.activity_wifi_test);
         x.view().inject(this);
         initData();
+
     }
 
     private void initData() {
-        mWifiUtil = new WifiUtil(this);
+
+        mWifiUtil = new WifiUtil(this.getApplicationContext());
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -94,16 +98,17 @@ public class WIFITestActivity extends Activity {
         switch (view.getId()) {
 
             case R.id.WifiHot_Socket_Client_Send:
-                WebSocketSetting setting = new WebSocketSetting();
-                setting.setConnectUrl(mWifiUtil.getIPAddress()+":1234");
-                SocketManager = WebSocketHandler.init(setting) ;
-
-                SocketManager.send("55555");
-
+//                try {
+//                    //发送消息
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+                thread();
                 break;
 
             case R.id.WifiHot_Socket_Server:
-                Log.d(TAG, "test    OnClick: " + mWifiUtil.getIPAddress());
+                Log.d(TAG, "test    OnClick: ");
                 SocketServer socketServer = new SocketServer(this, handler);
                 socketServer.start();
 //                setting.setConnectUrl(test_URL);;
@@ -118,7 +123,8 @@ public class WIFITestActivity extends Activity {
                     } else {
                         Log.d("test", "open: ");
                         //有了权限，你要做什么呢？具体的动作
-                        mWifiUtil.createWifiHot(name, password, WifiUtil.WPA);
+//                        mWifiUtil.createWifiHot(name, password, WifiUtil.WPA);
+                        mWifiUtil.createWifiHot(name, password);
                     }
                 }
 
@@ -144,52 +150,47 @@ public class WIFITestActivity extends Activity {
         Log.d("test", "onActivityResult: " + requestCode + "===" + resultCode + "===");
     }
 
-    private class MySocketListener implements SocketListener {
+    public void thread() {
+        final String ip = mWifiUtil.getIPAddress();
+        Log.d(TAG, "test   thread: " + mWifiUtil.getIPAddress());
+        final int port = 1234;
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Socket socket = new Socket(ip, port);
+                    Log.e("wifisocket", "建立连接");
+                    InputStream in = socket.getInputStream();
+                    out = socket.getOutputStream();
+                    out.write("55555".getBytes());
+                    //接收消息
+                    while (true) {
+                        byte[] buffer = new byte[1024];
+                        int len = 0;
+                        if ((len = in.read(buffer)) != -1) {
+                            byte[] data = new byte[len];
+                            for (int i = 0; i < data.length; i++)
+                                data[i] = buffer[i];
+                            String msg = new String(data);
+                            Log.e("收到消息", msg);
 
+                            Message message = new Message();
+                            message.what = 1;
+                            message.obj = msg;
+                            handler.sendMessage(message);
+                        }
+                    }
 
-        @Override
-        public void onConnected() {
-            Toast.makeText(WIFITestActivity.this, "连接成功", Toast.LENGTH_SHORT).show();
-            Log.d("test2222222", "onMessage: ");
-        }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        @Override
-        public void onConnectFailed(Throwable e) {
-            Log.d("test333333", "onMessage: ");
-        }
-
-        @Override
-        public void onDisconnect() {
-            Log.d("test4444444", "onMessage: ");
-        }
-
-        @Override
-        public void onSendDataError(ErrorResponse errorResponse) {
-            Log.d("test555555", "onMessage: ");
-        }
-
-        @Override
-        public <T> void onMessage(String message, T data) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
-            String formatStr = formatter.format(new Date());
-
-//            test_show.setText(message + "<========>" + formatStr);
-            Log.d("test", "onMessage: " + message);
-        }
-
-        @Override
-        public <T> void onMessage(ByteBuffer bytes, T data) {
-            Log.d("test1111", "onMessage: ");
-        }
-
-        @Override
-        public void onPing(Framedata framedata) {
-            Log.d("test16666666", "onMessage: ");
-        }
-
-        @Override
-        public void onPong(Framedata framedata) {
-            Log.d("test777777777", "onMessage: ");
-        }
+            }
+        }.start();
     }
+
+
+
+
+
 }
