@@ -63,8 +63,12 @@ public class WIFITestActivity extends Activity {
     private Button Socket_Client_Send;
 
 
+    @ViewInject(R.id.WifiHot_Socket_Server_Send)
+    private Button Socket_Server_Send;
+
     private String password = "123456789";
     private String name = "testHot";
+    private int PORT = 1234;
 
     private Handler handler;
 
@@ -93,23 +97,25 @@ public class WIFITestActivity extends Activity {
     }
 
 
-    @Event({R.id.createWifiHot, R.id.close_WifiHot, R.id.connect_WifiHot, R.id.WifiHot_Socket_Server, R.id.WifiHot_Socket_Client_Send})
+    @Event({R.id.createWifiHot, R.id.close_WifiHot, R.id.connect_WifiHot, R.id.WifiHot_Socket_Server, R.id.WifiHot_Socket_Client_Send,R.id.WifiHot_Socket_Server_Send})
     private void OnClick(View view) {
         switch (view.getId()) {
+            case R.id.WifiHot_Socket_Server_Send:
+                SocketClient socketServerSend = new SocketClient(PORT, mWifiUtil.getIPAddress());
+//                socketClient.run();
+                socketServerSend.start();
+                break;
 
             case R.id.WifiHot_Socket_Client_Send:
-//                try {
-//                    //发送消息
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                thread();
+
+                SocketClient socketClient = new SocketClient(PORT, mWifiUtil.getServerAddress());
+//                socketClient.run();
+                socketClient.start();
                 break;
 
             case R.id.WifiHot_Socket_Server:
                 Log.d(TAG, "test    OnClick: ");
-                SocketServer socketServer = new SocketServer(this, handler);
+                SocketServer socketServer = new SocketServer(this.getApplicationContext(), handler, PORT);
                 socketServer.start();
 //                setting.setConnectUrl(test_URL);;
                 break;
@@ -150,47 +156,44 @@ public class WIFITestActivity extends Activity {
         Log.d("test", "onActivityResult: " + requestCode + "===" + resultCode + "===");
     }
 
-    public void thread() {
-        final String ip = mWifiUtil.getIPAddress();
-        Log.d(TAG, "test   thread: " + mWifiUtil.getIPAddress());
-        final int port = 1234;
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Socket socket = new Socket(ip, port);
-                    Log.e("wifisocket", "建立连接");
-                    InputStream in = socket.getInputStream();
-                    out = socket.getOutputStream();
-                    out.write("55555".getBytes());
-                    //接收消息
-                    while (true) {
-                        byte[] buffer = new byte[1024];
-                        int len = 0;
-                        if ((len = in.read(buffer)) != -1) {
-                            byte[] data = new byte[len];
-                            for (int i = 0; i < data.length; i++)
-                                data[i] = buffer[i];
-                            String msg = new String(data);
-                            Log.e("收到消息", msg);
-
-                            Message message = new Message();
-                            message.what = 1;
-                            message.obj = msg;
-                            handler.sendMessage(message);
-                        }
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }.start();
-    }
-
-
-
+//    public void thread() {
+//        final String ip = mWifiUtil.getIPAddress();
+//        Log.d(TAG, "test   thread: " + mWifiUtil.getIPAddress());
+//        final int port = 1234;
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Socket socket = new Socket(ip, port);
+//                    Log.e("wifisocket", "建立连接");
+//                    InputStream in = socket.getInputStream();
+//                    out = socket.getOutputStream();
+//                    out.write("55555".getBytes());
+//                    //接收消息
+//                    while (true) {
+//                        byte[] buffer = new byte[1024];
+//                        int len = 0;
+//                        if ((len = in.read(buffer)) != -1) {
+//                            byte[] data = new byte[len];
+//                            for (int i = 0; i < data.length; i++)
+//                                data[i] = buffer[i];
+//                            String msg = new String(data);
+//                            Log.e("收到消息", msg);
+//
+//                            Message message = new Message();
+//                            message.what = 1;
+//                            message.obj = msg;
+//                            handler.sendMessage(message);
+//                        }
+//                    }
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        }.start();
+//    }
 
 
 }

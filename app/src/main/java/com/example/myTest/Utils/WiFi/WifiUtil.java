@@ -47,6 +47,7 @@ public class WifiUtil {
         // 取得WifiInfo对象
         mWifiInfo = mWifiManager.getConnectionInfo();
         dhcpInfo = mWifiManager.getDhcpInfo();
+
         mWifiConfigurations = mWifiManager.getConfiguredNetworks();
         mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         this.context = context;
@@ -83,6 +84,11 @@ public class WifiUtil {
     // 得到接入点的IP地址
     public String getIPAddress() {
         return (mWifiInfo == null) ? "NULL" : intToIp(dhcpInfo.ipAddress);
+    }
+
+    // 得到接入点的ServerAddress地址
+    public String getServerAddress() {
+        return (mWifiInfo == null) ? "NULL" : intToIp(dhcpInfo.serverAddress);
     }
 
     // 得到接入点的子网掩码

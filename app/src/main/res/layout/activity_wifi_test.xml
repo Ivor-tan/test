@@ -33,5 +33,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="WifiHot_Socket_Client_Send" />
+    <Button
+        android:id="@+id/WifiHot_Socket_Server_Send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WifiHot_Socket_Server_Send" />
 
 </LinearLayout>

@@ -15,25 +15,27 @@ import java.net.Socket;
 public class SocketServer extends Thread {
     public ServerSocket serverSocket;
     public Socket socket;
-    public static final int PORT = 1234;
+    private int PORT ;
 
     public Context context;
     public Handler handler;
 
-    public SocketServer(Context context, Handler handler) {
+    public SocketServer(Context context, Handler handler, int PORT) {
         this.context = context;
         this.handler = handler;
+        this.PORT = PORT;
     }
 
     @Override
     public void run() {
         try {
-            serverSocket = new ServerSocket(PORT);
+            serverSocket = new ServerSocket(PORT, 3);
             Log.e("wifi服务器", "已开启");
-
 
             //接收到消息后，马上发送一条消息
             while (true) {
+                sleep(100);
+                Log.e("wifi服务器=========》", "");
                 socket = serverSocket.accept();
                 Log.e("wifi服务器", "设备已连接");
 
@@ -59,6 +61,8 @@ public class SocketServer extends Thread {
 
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
