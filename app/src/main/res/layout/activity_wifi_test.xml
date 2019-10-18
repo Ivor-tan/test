@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <EditText
+        android:id="@+id/WIFI_Socket_Msg_Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="发送消息"/>
+
     <Button
         android:id="@+id/createWifiHot"
         android:layout_width="match_parent"
@@ -29,14 +36,26 @@
         android:text="WifiHot_Socket_Server" />
 
     <Button
+        android:id="@+id/connect_Socket_Server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="connect_Socket_Server" />
+
+    <Button
         android:id="@+id/WifiHot_Socket_Client_Send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="WifiHot_Socket_Client_Send" />
+
     <Button
         android:id="@+id/WifiHot_Socket_Server_Send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="WifiHot_Socket_Server_Send" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/WIFI_Socket_Msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

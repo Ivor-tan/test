@@ -1,5 +1,6 @@
 package com.example.myTest.Activity.Socket;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,38 +12,33 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 
 import com.example.myTest.R;
+import com.example.myTest.Utils.Time.TimeUtil;
 import com.example.myTest.Utils.WiFi.WifiUtil;
-import com.zhangke.websocket.SocketListener;
-import com.zhangke.websocket.WebSocketHandler;
-import com.zhangke.websocket.WebSocketManager;
-import com.zhangke.websocket.WebSocketSetting;
-import com.zhangke.websocket.response.ErrorResponse;
+import com.example.myTest.bean.WiFiSocketMsgBean;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-import org.java_websocket.framing.Framedata;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.lang.reflect.Method;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import static com.example.myTest.Activity.Socket.SocketClient.CLIENT_MSG;
+import static com.example.myTest.Activity.Socket.SocketServer.SERVER_MSG;
 
 public class WIFITestActivity extends Activity {
     private String TAG = "WIFITestActivity";
@@ -63,8 +59,17 @@ public class WIFITestActivity extends Activity {
     private Button Socket_Client_Send;
 
 
+    @ViewInject(R.id.connect_Socket_Server)
+    private Button connect_Socket_Server;
+
     @ViewInject(R.id.WifiHot_Socket_Server_Send)
-    private Button Socket_Server_Send;
+    private Button WifiHot_Socket_Server_Send;
+
+    @ViewInject(R.id.WIFI_Socket_Msg)
+    private RecyclerView WIFI_Socket_Msg;
+
+    @ViewInject(R.id.WIFI_Socket_Msg_Text)
+    private EditText WIFI_Socket_Msg_Text;
 
     private String password = "123456789";
     private String name = "testHot";
@@ -72,7 +77,12 @@ public class WIFITestActivity extends Activity {
 
     private Handler handler;
 
-    private OutputStream out;
+    private SocketClient socketClient;
+    private SocketServer socketServer;
+
+    private CommonAdapter<WiFiSocketMsgBean> MsgAdapter;
+    private List<WiFiSocketMsgBean> MsgData = new ArrayList<>();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,39 +93,102 @@ public class WIFITestActivity extends Activity {
 
     }
 
+    @SuppressLint("HandlerLeak")
     private void initData() {
-
         mWifiUtil = new WifiUtil(this.getApplicationContext());
+
+        WiFiSocketMsgBean data = new WiFiSocketMsgBean();
+        data.setDate(TimeUtil.dateFormat(new Date(System.currentTimeMillis())));
+        data.setMsg("=========Start======");
+        MsgData.add(data);
+        MsgData.add(data);
+        MsgData.add(data);
+
+        MsgAdapter = new CommonAdapter<WiFiSocketMsgBean>(this, R.layout.item_wifi_socket_msg, MsgData) {
+            @Override
+            protected void convert(ViewHolder holder, WiFiSocketMsgBean data, int position) {
+                holder.setText(R.id.item_wifi_socket_date, data.getDate() + "=====>")
+                        .setText(R.id.item_wifi_socket_msg, data.getMsg());
+            }
+        };
+        WIFI_Socket_Msg.setLayoutManager(new LinearLayoutManager(this));
+        WIFI_Socket_Msg.setAdapter(MsgAdapter);
+
+
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                Log.d(TAG, "test   handleMessage: " + msg.obj.toString());
+//                Log.e(TAG, "handleMessage: " + msg.what + msg.obj);
+                switch (msg.what) {
+                    case CLIENT_MSG:
+                        WiFiSocketMsgBean client = new WiFiSocketMsgBean();
+                        client.setDate(TimeUtil.dateFormat(new Date(System.currentTimeMillis())));
+                        client.setMsg("SERVER_MSG:" + msg.obj);
+                        MsgData.add(client);
+                        MsgAdapter.notifyDataSetChanged();
+                        break;
+                    case SERVER_MSG:
+                        WiFiSocketMsgBean server = new WiFiSocketMsgBean();
+                        server.setDate(TimeUtil.dateFormat(new Date(System.currentTimeMillis())));
+                        server.setMsg("CLIENT_MSG:" + msg.obj);
+                        MsgData.add(server);
+                        MsgAdapter.notifyDataSetChanged();
+                        break;
+                }
+
             }
         };
 
     }
 
 
-    @Event({R.id.createWifiHot, R.id.close_WifiHot, R.id.connect_WifiHot, R.id.WifiHot_Socket_Server, R.id.WifiHot_Socket_Client_Send,R.id.WifiHot_Socket_Server_Send})
+    @Event({R.id.createWifiHot, R.id.close_WifiHot, R.id.connect_WifiHot, R.id.WifiHot_Socket_Server, R.id.WifiHot_Socket_Client_Send, R.id.connect_Socket_Server, R.id.WifiHot_Socket_Server_Send})
     private void OnClick(View view) {
         switch (view.getId()) {
             case R.id.WifiHot_Socket_Server_Send:
-                SocketClient socketServerSend = new SocketClient(PORT, mWifiUtil.getIPAddress());
-//                socketClient.run();
-                socketServerSend.start();
+                String Server_text = WIFI_Socket_Msg_Text.getText().toString();
+                if (!Server_text.equals("") && socketServer != null) {
+                    WiFiSocketMsgBean server = new WiFiSocketMsgBean();
+                    server.setDate(TimeUtil.dateFormat(new Date(System.currentTimeMillis())));
+                    server.setMsg("SERVER_MSG:" + Server_text);
+                    MsgData.add(server);
+                    MsgAdapter.notifyDataSetChanged();
+                    socketServer.Send(Server_text);
+                }
+                break;
+            case R.id.WifiHot_Socket_Client_Send:
+                String Client_text = WIFI_Socket_Msg_Text.getText().toString();
+                if (!Client_text.equals("") && socketClient != null) {
+                    WiFiSocketMsgBean client = new WiFiSocketMsgBean();
+                    client.setDate(TimeUtil.dateFormat(new Date(System.currentTimeMillis())));
+                    client.setMsg("CLIENT_MSG:" + Client_text);
+                    MsgData.add(client);
+                    MsgAdapter.notifyDataSetChanged();
+                    socketClient.Send(Client_text);
+                }
+
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            socketClient.getOut().write("6666".getBytes());
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }) {
+//                }.start();
+
                 break;
 
-            case R.id.WifiHot_Socket_Client_Send:
 
-                SocketClient socketClient = new SocketClient(PORT, mWifiUtil.getServerAddress());
-//                socketClient.run();
+            case R.id.connect_Socket_Server:
+                socketClient = new SocketClient(getApplicationContext(), PORT, mWifiUtil.getServerAddress(), handler);
                 socketClient.start();
                 break;
-
             case R.id.WifiHot_Socket_Server:
-                Log.d(TAG, "test    OnClick: ");
-                SocketServer socketServer = new SocketServer(this.getApplicationContext(), handler, PORT);
+                socketServer = new SocketServer(this.getApplicationContext(), handler, PORT);
                 socketServer.start();
 //                setting.setConnectUrl(test_URL);;
                 break;
@@ -137,7 +210,7 @@ public class WIFITestActivity extends Activity {
                 break;
             case R.id.close_WifiHot:
                 Log.d("test", "close: ");
-
+                mWifiUtil.closeAp();
                 break;
             case R.id.connect_WifiHot:
                 Log.d("test", "connect: ");
