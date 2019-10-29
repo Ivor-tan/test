@@ -1,1 +1,1 @@
-include ':app', ':netutileapp', ':unitytoandroid', ':myunitylibrary'
+include ':app', ':unitytoandroid', ':unity_libs'
