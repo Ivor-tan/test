@@ -35,6 +35,7 @@ public class UnitySceneActivity extends UnityPlayerActivity {
         mLlUnityContainer.addView(scene);
 //        UnityPlayer.LoadLevel
         UnityPlayer.UnitySendMessage("Text_Loading","StartGame","");
+
         unity_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

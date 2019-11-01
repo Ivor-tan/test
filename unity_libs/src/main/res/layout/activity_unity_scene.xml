@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+
     android:background="@color/blue"
     android:orientation="vertical">
 
@@ -21,10 +23,10 @@
         android:text="unity_button" />
 
     <Button
-        android:layout_below="@+id/unity_button"
         android:id="@+id/unity_start_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/unity_button"
         android:text="unity_start_button" />
 
 
