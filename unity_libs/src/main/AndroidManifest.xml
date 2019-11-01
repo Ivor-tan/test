@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.UnitySceneActivity"/>
+        <activity android:name=".activity.UnitySceneActivity" />
 
     </application>
 

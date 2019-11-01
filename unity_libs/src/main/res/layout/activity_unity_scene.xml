@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:orientation="vertical">
+
+    <LinearLayout
+
+        android:id="@+id/unity_scene"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/unity_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="unity_button" />
+
+    <Button
+        android:layout_below="@+id/unity_button"
+        android:id="@+id/unity_start_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="unity_start_button" />
+
+
+
+</RelativeLayout>
