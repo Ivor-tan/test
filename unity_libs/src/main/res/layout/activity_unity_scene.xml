@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rocker="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -16,19 +18,17 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/unity_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="unity_button" />
 
-    <Button
-        android:id="@+id/unity_start_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/unity_button"
-        android:text="unity_start_button" />
-
-
+    <com.ivor.unity_libs.View.RockerView
+        android:id="@+id/rockerXY_View"
+        android:layout_width="@dimen/dp_75"
+        android:layout_height="@dimen/dp_75"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        app:rockerBackground="@mipmap/move"
+        rocker:areaBackground="@mipmap/rocker_base"
+        rocker:rockerCallBackMode="CALL_BACK_MODE_STATE_CHANGE"
+        rocker:rockerScale="0.5"
+        rocker:rockerSpeedLevel="10" />
 
 </RelativeLayout>

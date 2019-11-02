@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:rocker="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".activity.MainActivity">
 
-    <Button
-        android:id="@+id/go_scene"
+    <!--<Button-->
+    <!--android:id="@+id/go_scene"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:text="Hello World!" />-->
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Hello World!" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_80"
+        android:src="@drawable/starttitle" />
+
+    <Button
+        android:id="@+id/one_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_250"
+        android:background="@drawable/player_1" />
 
     <TextView
-        android:id="@+id/direction"
+        android:id="@+id/two_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="center" />
-
-    <com.ivor.unity_libs.View.RockerView
-        android:id="@+id/rockerXY_View"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        rocker:areaBackground="@mipmap/rocker_base"
-        rocker:rockerBackground="@mipmap/rocker"
-        rocker:rockerCallBackMode="CALL_BACK_MODE_STATE_CHANGE"
-        rocker:rockerScale="0.5"
-        rocker:rockerSpeedLevel="10" />
-
+        android:layout_marginTop="@dimen/dp_300"
+        android:background="@drawable/player_2" />
 
 </RelativeLayout>

@@ -21,7 +21,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.UnitySceneActivity" />
+        <activity
+            android:name=".activity.UnitySceneActivity"
+            android:screenOrientation="landscape" />
 
     </application>
 
