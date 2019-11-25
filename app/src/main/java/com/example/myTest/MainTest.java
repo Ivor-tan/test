@@ -17,8 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.bravin.btoast.BToast;
 import com.example.myTest.Activity.AudioActivity;
@@ -33,6 +37,8 @@ import com.example.myTest.Activity.Socket.WIFITestActivity;
 import com.example.myTest.Activity.Socket.WebSocketActivity;
 import com.example.myTest.Activity.WebViewActivity;
 import com.example.myTest.Listener.PermissionListener;
+import com.example.myTest.Utils.Http.RetrofitUtil.RequestLoader;
+import com.example.myTest.Utils.map.LocationUtils;
 
 
 import org.xutils.view.annotation.ViewInject;
@@ -76,6 +82,8 @@ public class MainTest extends Activity implements View.OnClickListener {
         initData();
         hideInput();
 
+
+        Log.d(TAG, "onCreate: tbq==============="+LocationUtils.getInstance().getLocations(this));
         textView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -170,7 +178,7 @@ public class MainTest extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.WIFI:
+            case R.id.WIFI:
                 startActivity(new Intent(this, WIFITestActivity.class));
                 break;
             case R.id.SharedPreferences:
@@ -380,18 +388,58 @@ public class MainTest extends Activity implements View.OnClickListener {
      * 时间选择器
      */
     private void showPickTime() {
-        TimePickerView timePickerView = new TimePickerBuilder(this, new OnTimeSelectListener() {
+
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add("1111111");
+        }
+        for (int i = 0; i < 5; i++) {
+            list.add("22222222");
+        }
+        List<String> list2 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list2.add("444444");
+        }
+        for (int i = 0; i < 5; i++) {
+            list2.add("555555555");
+        }
+        List<List<String>> list1 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list1.add(list2);
+        }
+        for (int i = 0; i < 5; i++) {
+            list1.add(list);
+        }
+
+        OptionsPickerView pickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
-            public void onTimeSelect(Date date, View v) {
-                SimpleDateFormat formatter = new SimpleDateFormat("YYYY年MM月dd日 HH点mm分");
-                textView.setText(formatter.format(date));
-//                Log.d("activity_main_test", "onTimeSelect: " + formatter.format(date));
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                Log.d("tbq", "onOptionsSelect: " + list.get(options1));
             }
-        }).setTitleText("上门时间")
-                .setType(new boolean[]{true, true, true, true, true, false})
-                .setBgColor(Color.rgb(255, 255, 255))
-                .setTitleBgColor(Color.rgb(255, 255, 255)).build();
-        timePickerView.show();
+        }).setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
+            @Override
+            public void onOptionsSelectChanged(int options1, int options2, int options3) {
+                Log.d("tbq", "onOptionsSelect: " + list.get(options1) + list1.get(options1).get(options2));
+            }
+        }).build();
+
+        pickerView.setPicker(list, list1);
+
+        pickerView.show();
+
+
+//        TimePickerView timePickerView = new TimePickerBuilder(this, new OnTimeSelectListener() {
+//            @Override
+//            public void onTimeSelect(Date date, View v) {
+//                SimpleDateFormat formatter = new SimpleDateFormat("YYYY年MM月dd日 HH点mm分");
+//                textView.setText(formatter.format(date));
+////                Log.d("activity_main_test", "onTimeSelect: " + formatter.format(date));
+//            }
+//        }).setTitleText("上门时间")
+//                .setType(new boolean[]{true, true, true, true, true, false})
+//                .setBgColor(Color.rgb(255, 255, 255))
+//                .setTitleBgColor(Color.rgb(255, 255, 255)).build();
+//        timePickerView.show();
     }
 
 
